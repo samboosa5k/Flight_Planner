@@ -1,0 +1,44 @@
+{
+  "name": "jasper_react_starter",
+  "version": "1.0.0",
+  "description": "Custom react project starter based on Tim Givois",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --hot --open",
+    "build": "webpack --config webpack.config.js --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samboosa5k/jasper_react_starter.git"
+  },
+  "author": "Jasper Verbon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samboosa5k/jasper_react_starter/issues"
+  },
+  "homepage": "https://github.com/samboosa5k/jasper_react_starter#readme",
+  "dependencies": {
+    "@babel/core": "^7.7.5",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.0",
+    "file-loader": "^5.0.2",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.13.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.2",
+    "webpack": "^4.41.3",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  },
+  "devDependencies": {
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "reactstrap": "^8.2.0"
+  }
+}
