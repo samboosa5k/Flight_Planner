@@ -1,6 +1,6 @@
 /* 
     Date functionality for Flight Planner
-    - Used module/encapsulation design pattern
+    - Used Revealing module/encapsulation design pattern
 */
 
 export const date = () => {

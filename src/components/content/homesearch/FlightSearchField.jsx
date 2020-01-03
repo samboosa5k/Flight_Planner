@@ -16,6 +16,20 @@ const FlightSearchField = ({identifier, placeholder}) => {
  
     //  * Submit search query to context when typing
     const setQuery = (inputQuery) => {
+        //  Conditional dynamic importing of alphabetical named airport json lists
+        let db = {};
+            
+        const test = () => {
+            if (inputQuery.length > 2) {
+                db = require(`../../../db_IATA/${inputQuery[0].toUpperCase()}_airports.json`);
+                return db;
+            } else {
+                return 'No db imported yet';
+            }
+        }
+        
+        console.log('Current db: ', test());
+
         dispatch({
             target: identifier,
             payload: inputQuery
