@@ -14,8 +14,9 @@ import { Input } from 'reactstrap';
 const FlightSearchField = ({identifier, placeholder}) => {
     //  Context
     const {state, dispatch} = useContext(FlightContext);
-    //  State - current loaded IATA db & search query
+    //  State - Search query
     const [currentQuery, setCurrentQuery] = useState('');
+    //  State - load alphabetical IATA database, and LOCATION database 
     const [iataDB, setIataDB] = useState({});
  
     //  * Update search query to context when typing
