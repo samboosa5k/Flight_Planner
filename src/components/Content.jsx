@@ -18,7 +18,12 @@ import { Container } from 'reactstrap';
 const HomeSearch = React.lazy(()=> import('./views/HomeSearch.jsx'));
 
 /* 
-    Switch - show a different view based on incoming props from 'index.js'
+    Switch:
+    - show a different view based on incoming props from 'index.js'
+    - each view will load a different set of components
+        - if the components are unique to the 'view', they will come from
+        the similarly named folder in /content/*view_name*
+
 */
 const ContentSwitch = ( {pageContent} ) => {
     switch(pageContent){

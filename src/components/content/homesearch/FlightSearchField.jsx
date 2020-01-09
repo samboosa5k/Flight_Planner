@@ -8,45 +8,63 @@ import {FlightContext} from '../../../flightContext.jsx';
 /* 
     Reactstrap improts
 */
-import { Input } from 'reactstrap';
+import { Dropdown, Input } from 'reactstrap';
 
+/* 
+    Component imports: 
+*/
+import SuggestionDropDown from './SuggestionDropDown.jsx';
 
 const FlightSearchField = ({identifier, placeholder}) => {
     //  Context
     const {state, dispatch} = useContext(FlightContext);
     //  State - Search query
-    const [currentQuery, setCurrentQuery] = useState('');
-    //  State - load alphabetical IATA database, and LOCATION database 
-    const [iataDB, setIataDB] = useState({});
+    const [query, setQuery] = useState('');
+    //  State - load alphabetical LOCATION database 
+    const [iataDB, setIataDB] = useState([]);
+    //  State - Suggestions (and dropdown)
+    const [suggestions, setSuggestions] = useState([]);
+    const [ddState, setddState] = useState(false);
  
-    //  * Update search query to context when typing
-    const setQuery = (inputQuery) => {
-        setCurrentQuery(inputQuery);
+    
+    //  Handle airport suggestion filtering
+    const handleSuggestions = (inputQuery) => {
+        const suggestionsFiltered = iataDB.filter((obj)=>{
+            return obj.location.startsWith(inputQuery);
+        })
+
+        console.log('suggestion status: ', suggestionsFiltered);
+        
+        //  Set suggestions state if any are found & are not too many
+        //  If there are no suggestions, force clear the suggestions
+        if(suggestionsFiltered.length > 0 && suggestionsFiltered.length <= 10){
+            setSuggestions(suggestionsFiltered);
+            setddState(true);
+        } else {
+            setSuggestions([]);
+            setddState(false);
+        }
     }
+    
 
     //  Conditional importing of alphabetical named airport lists
-    /* 
-        - Problem: Json files are named based on IATA code, so if someone searches
-        for an airport location starting with 'Bah', but IATA code of desired airport starts with 'Xxx',
-        the airport will not be found...
-    */
-    const loadDBCondition = (inputQuery) => {
-        if (inputQuery.length > 2) {
-            if(Object.keys(iataDB)[0] !== inputQuery[0].toUpperCase() || Object.keys(iataDB)[0] === undefined) {
-                setIataDB(require(`../../../db_IATA/${inputQuery[0].toUpperCase()}_airports.json`));
-                console.log('Load DB status','New DB loaded');
-            } else {
-                console.log('Load DB status','No need to load another DB');
-            }
-        } else {
-            console.log('Load DB status','DB will import after > 2 char query length');
+    const handleDBLoad = (inputQuery) => {
+        if(Object.keys(iataDB)[0] !== inputQuery[0].toUpperCase() || Object.keys(iataDB)[0] === undefined) {
+            setIataDB(require(`../../../db_LOCATION/${inputQuery[0].toUpperCase()}_airports.json`));
         }
     }
 
     //  Handle query change
     const handleQueryChange = (inputQuery) => {
         setQuery(inputQuery);
-        loadDBCondition(inputQuery);
+
+        // Only get DB & suggestions if query is longer than x length
+        if(inputQuery.length > 1) {
+            handleDBLoad(inputQuery);
+            handleSuggestions(inputQuery);
+        } else {
+            console.log('Query status: ','DB will import after 2 char query length');
+        }
     }
 
     //  Handle submission:
@@ -66,17 +84,30 @@ const FlightSearchField = ({identifier, placeholder}) => {
     }
     
     return (
-        <Input 
-        type="text" 
-        identifier={identifier} 
-        placeholder={placeholder}
-        onChange={(e)=>{handleQueryChange(e.target.value)}}
-        onKeyPress={(e) => {
-            if (e.key === 'Enter') {
-              handleSubmission(currentQuery);
+        <Dropdown isOpen={ddState} toggle={()=>{}}>
+            
+            <Input 
+            type="text" 
+            identifier={identifier} 
+            placeholder={placeholder}
+            value={query}
+            onChange={(e)=>{handleQueryChange(e.target.value)}}
+            onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                handleSubmission(query);
+                }
+            }}
+            />
+
+            {
+                ddState && 
+                <SuggestionDropDown 
+                isOpen={ddState}
+                suggestions={suggestions} 
+                identifier={identifier}/>
             }
-          }}
-        />
+                        
+        </Dropdown>
     )
 }
 

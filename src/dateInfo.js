@@ -27,4 +27,4 @@ export const date = () => {
     }
 }
 
-console.log(date().nrDaysInMonth(2,2008))
+console.log('dateInfo.js: ', 'date functions loaded!');
