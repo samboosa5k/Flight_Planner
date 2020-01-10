@@ -25,8 +25,6 @@ const FlightSearchField = ( { identifier, placeholder } ) => {
     //  State - Suggestions (and dropdown)
     const [suggestions, setSuggestions] = useState( [] );
     const [dropState, setDropState] = useState( false );
-    //  State - Selected airport
-    const [selectedAP, setSelectedAP] = useState( {} ); //  //  //  THIS NEEDS TO DISPATCH TO CONTEXT
 
 
     //  Handle airport suggestion filtering
@@ -56,47 +54,30 @@ const FlightSearchField = ( { identifier, placeholder } ) => {
         }
     }
 
-    //  Handle query change from multiple sources/interactions:
-    //  Typing is easiest
-    //  When suggestions are available, selection is possible through Enter
-    //  When dropdown is clicked on, selection is made precisely
-    const handleQueryChange = ( input, type ) => {       
-        let inputQuery = undefined;
-        
-        if(input.target !== undefined){
-            inputQuery = input.target.value;
+    //  Handle query change = load DB & generate suggestions
+    const handleQueryChange = ( inputQuery ) => {       
+        setQuery( inputQuery );
+        // Only get DB & suggestions if typing
+        if ( inputQuery.length > 1 ) {
+            handleDBLoad( inputQuery );
+            handleSuggestions( inputQuery );
         } else {
-            inputQuery = input.airport;
-        }; 
-        
-        switch(type){
-            case('txt'):
-                setQuery( inputQuery );
-                // Only get DB & suggestions if typing
-                if ( inputQuery.length > 1 ) {
-                    handleDBLoad( inputQuery );
-                    handleSuggestions( inputQuery );
-                } else {
-                    console.log( 'Query status: ', 'DB will import after 2 char query length' );
-                };
-                break;
-            case('kp'):
-                // Set the chosen airport immediately with enter after typing
-                if(input.key === 'Enter') {
-                    handleSuggestions( inputQuery );
-                    setQuery(suggestions[0].airport);
-                    setSelectedAP(suggestions[0]);  //  //  //  THIS NEEDS TO DISPATCH TO CONTEXT
-                    setDropState( false );
-                }
-                break;
-            case ('btn'):
-                // Set the chosen airport when selecting from the dropdown
-                setQuery(inputQuery);
-                setSelectedAP(input);   //  //  //  THIS NEEDS TO DISPATCH TO CONTEXT
-                setDropState( false );
-                break;
-        }    
-        
+            console.log( 'Query status: ', 'DB will import after 2 char query length' );
+        };
+    }
+
+    const handleSelection = (airportName, suggIndex) => {
+        const iata = suggestions[suggIndex]['key'];
+        //  Set search field / dropdown state
+        setQuery(airportName);
+        setDropState( false );
+
+        // Dispatch to context
+        dispatch({
+            target: identifier,
+            payload: iata
+        })
+
     }
 
 
@@ -108,8 +89,12 @@ const FlightSearchField = ( { identifier, placeholder } ) => {
                 identifier={identifier}
                 placeholder={placeholder}
                 value={query}
-                onChange={( e ) => { handleQueryChange( e, 'txt' ) }}
-                onKeyPress={( e ) => { handleQueryChange( e, 'kp' ) }}
+                onChange={( e ) => { handleQueryChange( e.target.value ) }}
+                onKeyPress={( e ) => { 
+                    if(e.key === 'Enter'){
+                        handleSelection( suggestions[0].airport, 0 );
+                    }
+                }}
             />
 
             {
@@ -117,7 +102,7 @@ const FlightSearchField = ( { identifier, placeholder } ) => {
                 <SuggestionDropDown
                     isOpen={dropState}
                     suggestions={suggestions}
-                    dropSelect={handleQueryChange}
+                    handleSelection={handleSelection}
                     identifier={identifier} />
             }
 

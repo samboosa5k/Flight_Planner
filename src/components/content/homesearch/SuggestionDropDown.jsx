@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 */
 import { DropdownMenu, DropdownItem } from 'reactstrap';
 
-const SuggestionDropDown = ( { isOpen, suggestions, dropSelect, identifier } ) => {
+const SuggestionDropDown = ( { isOpen, suggestions, handleSelection, identifier } ) => {
     //  Hacky reactstrap/dropdown visibility condition
     const _opacity = (isOpen) ? '100%' : '0';
 
@@ -14,7 +14,7 @@ const SuggestionDropDown = ( { isOpen, suggestions, dropSelect, identifier } ) =
     <DropdownMenu id={`suggestions_${identifier}`} style={{opacity: _opacity, position:'relative'}}>
         {
             suggestions.map( ( obj, index ) => (
-                <DropdownItem key={`sugItem_${index}`} onClick={()=>{dropSelect(obj, 'btn')}}>
+                <DropdownItem key={`sugItem_${index}`} onClick={(e)=>{handleSelection(obj.airport, index)}}>
                     {obj.airport}
                 </DropdownItem>
             ) )
