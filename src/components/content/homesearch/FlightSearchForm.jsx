@@ -11,6 +11,21 @@ import { Col, Row, Input } from 'reactstrap';
 import FlightSearchField from './FlightSearchField.jsx';
 import FlightDatePicker from './FlightDatePicker.jsx';
 
+//  Handle whole form submission:  MOVE THIS to FlightSearchForm.jsx
+const handleSubmission = ( query ) => {
+    const iata = iataDB.find( ( q ) => {
+        return q.location.includes( query ) === true;
+    } );
+
+    console.log( iata );
+
+    /* 
+    dispatch({
+                target: context key for the url,
+                payload: the actual built url
+            }) 
+    */
+}
 
 const FlightSearchForm = () => {
     return (
