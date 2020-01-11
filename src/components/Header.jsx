@@ -8,7 +8,7 @@ import { Navbar, Nav, NavItem } from 'reactstrap';
 /* 
     Component imports: Header
 */
-import Logo from './global/Logo.jsx';
+import Logo from './general/Logo.jsx';
 
 
 const Header = () => (

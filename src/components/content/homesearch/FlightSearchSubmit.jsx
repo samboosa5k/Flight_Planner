@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 
 /* 
     Context imports
@@ -26,18 +26,29 @@ const FlightSearchSubmit = () => {
     //  Context
     const {state, dispatch} = useContext(FlightContext);
 
+    const flightType = state.find(obj => obj.key === 'flight_type');
+
     //  Handle submit button
     const handleSubmit = () => {
         //  Filter context objects conditionally
         const urlParams = state.filter((obj)=>{
-            return obj.key !== 'built_fetch_url';
+            
+            if(obj.key !== 'built_fetch_url'){
+                if(flightType.value === 'oneway') {
+                    if(obj.key !== 'return_from'){
+                        return obj.key;
+                    }
+                } else {
+                    return obj.key;
+                };
+            }
         });
         const builtUrl = urlBuilder().construct(
             urls().kiwiBase,
             urlParams
         );
 
-        console.log(builtUrl);
+        console.log(urlParams);
 
         /* 
         dispatch({

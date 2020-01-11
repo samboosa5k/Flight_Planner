@@ -13,7 +13,7 @@ const FlightSearchForm = React.lazy( () => import( '../content/homesearch/Flight
 const FlightSearchSubmit = React.lazy( () => import( '../content/homesearch/FlightSearchSubmit.jsx' ) );
 
 const HomeSearch = () => {
-    
+
     return (
         <>
             <Container className="searchform-container">
@@ -25,8 +25,8 @@ const HomeSearch = () => {
                 <Card className="searchform">
                     <CardBody className="p-3">
                         <Suspense fallback={<p>Loading flight search form...</p>}>
-                            <FlightDetailToggles />
-                            <FlightSearchForm />
+                            <FlightDetailToggles/>
+                            <FlightSearchForm/>
                             <FlightSearchSubmit/>
                         </Suspense>
                     </CardBody>

@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 /* 
@@ -43,8 +43,12 @@ const FlightDetailToggles = () => {
         switch(target){
             case 'flight_type':
                 setFlightType(chosen);
-                if(chosen === 'Single') payload = 'oneway';
-                if(chosen === 'Return') payload = 'round';
+                if(chosen === 'Single') {
+                    payload = 'oneway';
+                }
+                if(chosen === 'Return') {
+                    payload = 'round';
+                }
                 break;
             
             case 'adults':

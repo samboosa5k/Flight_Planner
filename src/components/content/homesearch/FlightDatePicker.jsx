@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 /* 
     Context imports
@@ -20,7 +20,18 @@ import {    Button, Col,
 
 const FlightDatePicker = ({label, identifier}) => {
     const {state, dispatch} = useContext(FlightContext);
+    const [active, setActive] = useState(false);
     
+    useEffect(()=>{
+        const flightType = state.find(obj => obj.key === 'flight_type');
+    
+        if (flightType.value === 'oneway' && identifier === 'return_from') {
+            setActive(false);
+        } else {
+            setActive(true);
+        }
+    })
+
     //  DATE MANAGEMENT
     //  * Init individual day/month/year
     //      - Used for constructing the date
@@ -49,7 +60,7 @@ const FlightDatePicker = ({label, identifier}) => {
 
     //  Handle the dropdown toggling
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const toggle = () => setDropdownOpen(prevState => !prevState);
+    const toggle = () => {if (active) setDropdownOpen(prevState => !prevState)};
 
     return (
         <Dropdown isOpen={dropdownOpen} toggle={toggle} /* className="w-50" */>

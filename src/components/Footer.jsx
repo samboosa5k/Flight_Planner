@@ -8,7 +8,7 @@ import { Nav, Container } from 'reactstrap';
 /* 
     Component imports: Footer
 */
-import Logo from './global/Logo.jsx';
+import Logo from './general/Logo.jsx';
 import LangCurrMenu from './footer/LangCurrMenu.jsx';
 import Disclaimer from './footer/Disclaimer.jsx';
 
