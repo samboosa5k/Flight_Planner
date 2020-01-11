@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
 /* 
-    Global variable imports
+    Context imports
 */
 import { FlightContext } from '../../../flightContext.jsx';
 
@@ -14,6 +14,7 @@ import { Dropdown, Input } from 'reactstrap';
     Component imports: 
 */
 import SuggestionDropDown from './SuggestionDropDown.jsx';
+
 
 const FlightSearchField = ( { identifier, placeholder } ) => {
     //  Context

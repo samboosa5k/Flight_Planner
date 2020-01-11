@@ -2,10 +2,15 @@ import React, {Suspense, useEffect, useReducer} from 'react';
 import PropTypes from 'prop-types';
 
 /* 
-    Global variable imports
+    Context imports: SETUP
+    - This is where it is setup/initialized and passed down
 */
 import { flightParameters, FlightContext, flightParamReducer } from '../flightContext.jsx';
-import {date} from '../dateInfo.js';
+
+/* 
+    General imports
+*/
+import {date} from '../tools.js';
 
 /* 
     Reactstrap imports
@@ -29,22 +34,22 @@ const ContentSwitch = ( {pageContent} ) => {
     switch(pageContent){
         case '/':
             return (
-                    <HomeSearch />
+                <HomeSearch />
             );
             break;
         case '/search':
             return (
-                    <p>This is the content {pageContent}</p>
+                <p>This is the content {pageContent}</p>
             );
             break;
         case '/flight_details':
             return (
-                    <p>This is the content {pageContent}</p>
+                <p>This is the content {pageContent}</p>
             );
             break;
         default:
             return (
-                    <HomeSearch />
+                <HomeSearch />
             );
             break;
     }
@@ -60,25 +65,23 @@ const Content = ( { pageContent }) => {
     //  - Init as high as possible
     useEffect(()=>{
         dispatch({
-            target: 'departureDate',
+            target: 'date_from',
             payload: date().todayFormatted
         });
         
         dispatch({
-            target: 'returnDate',
+            target: 'return_from',
             payload: date().todayFormatted
         });        
     },[]);
 
     return(
         <FlightContext.Provider value={{state, dispatch}}>
-            <main className="content my-4">
-                <Container fluid="md">
+                <Container className="content my-4" fluid="md" tag="main">
                     <Suspense fallback={<p>Loading page content...</p>}>
                         <ContentSwitch pageContent={pageContent}/>
                     </Suspense>
                 </Container>
-            </main>
         </FlightContext.Provider>
     )
 }

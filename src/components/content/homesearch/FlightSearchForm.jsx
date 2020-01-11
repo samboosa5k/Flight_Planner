@@ -3,7 +3,7 @@ import React from 'react';
 /* 
     Reactstrap imports
 */
-import { Col, Row, Input } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 
 /*
     Component imports: Content
@@ -11,39 +11,23 @@ import { Col, Row, Input } from 'reactstrap';
 import FlightSearchField from './FlightSearchField.jsx';
 import FlightDatePicker from './FlightDatePicker.jsx';
 
-//  Handle whole form submission:  MOVE THIS to FlightSearchForm.jsx / VIews->HomeSearch.jsx
-const handleSubmission = ( query ) => {
-    const iata = iataDB.find( ( q ) => {
-        return q.location.includes( query ) === true;
-    } );
-
-    console.log( iata );
-
-    /* 
-    dispatch({
-                target: context key for the url,
-                payload: the actual built url
-            }) 
-    */
-}
-
 const FlightSearchForm = () => {
     return (
         <Row>
             <Col>
-                <FlightSearchField identifier="origin" placeholder="Origin..."/>
+                <FlightSearchField identifier="fly_from" placeholder="Origin..."/>
             </Col>
         
             <Col>
-                <FlightSearchField identifier="destination" placeholder="Destination..."/>
+                <FlightSearchField identifier="fly_to" placeholder="Destination..."/>
             </Col>
         
             <Col>
-                <FlightDatePicker identifier="departureDate" label="Depart"/>
+                <FlightDatePicker identifier="date_from" label="Depart"/>
             </Col>
             
             <Col>
-                <FlightDatePicker identifier="returnDate" label="Return"/>
+                <FlightDatePicker identifier="return_from" label="Return"/>
             </Col>
         </Row>
     )

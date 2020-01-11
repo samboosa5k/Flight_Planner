@@ -4,8 +4,9 @@ Flight planner React project done using the Kiwi.com flight-search Api
 
 ## Stack
 React
-Reactstrap
-Scss
+* [Reactstrap](https://reactstrap.github.io/)
+Bootstrap
+* [Bootstrap Icons](https://github.com/twbs/icons)
 
 ### Process
 

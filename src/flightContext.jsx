@@ -2,35 +2,48 @@ import React from 'react';
 
 /*
     Context - init context and default state
+    - Partner = picky, this is ESSENTIAL
 */
 export const flightParameters = [ 
     {
-        "key": "returnOrSingle",
-        "value": "Single"
-    },
-    {
-        "key": "numPassengers",
-        "value": "1"
-    },
-    {
-        "key": "class",
-        "value": "Economy"
-    },
-    {
-        "key": "departureDate",
-        "value": "00-00-00"
-    },
-    {
-        "key": "returnDate",
-        "value": "00-00-00"
-    },
-    {
-        "key": "origin",
+        "key": "fly_from",
         "value": "Amsterdam"
     },
     {
-        "key": "destination",
+        "key": "fly_to",
         "value": "Dublin"
+    },
+    {
+        "key": "date_from",
+        "value": "00/00/00"
+    },
+    {
+        "key": "return_from",
+        "value": "00/00/00"
+    },
+    {
+        "key": "flight_type",
+        "value": "oneway"
+    },
+    {
+        "key": "adults",
+        "value": "1"
+    },
+    {
+        "key": "selected_cabins",
+        "value": "M"
+    },
+    {
+        "key": "limit",
+        "value": "10"
+    },
+    {
+        "key": "partner",
+        "value": "picky"
+    },
+    {
+        "key": "built_fetch_url",
+        "value": ""
     }
 ];
 

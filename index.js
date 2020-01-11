@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 /* 
     Global variable imports
 */
-import { routes } from "./src/routes.js";
+import { routes } from "./src/locations.js";
 
 /* 
     Component imports: Layout

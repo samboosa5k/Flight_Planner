@@ -1,10 +1,14 @@
 import React, {useContext, useState} from 'react';
 
 /* 
-    Global variable imports
+    Context imports
 */
 import {FlightContext} from '../../../flightContext.jsx';
-import {date} from '../../../dateInfo.js';
+
+/* 
+    General imports
+*/
+import {date} from '../../../tools.js';
 
 /* 
     Reactstrap improts
