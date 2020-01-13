@@ -35,9 +35,8 @@ export const date = () => {
     - paramValArray = array of objects, consisting of parameter name & value
 */
 export const urlBuilder = () => {
-
     const buildQueryString = (paramValArray) => {
-        let query = '';
+        let query = '?';
         paramValArray.forEach((obj,index)=>{
             const amp = (index+1 === paramValArray.length) ? '' : '&';
             query += `${obj.key}=${obj.value}${amp}`;

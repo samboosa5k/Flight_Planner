@@ -1,10 +1,9 @@
-import React, {useState, useContext, useEffect} from 'react';
-import PropTypes from 'prop-types';
+import React, {useState, useContext} from 'react';
 
 /* 
     Context imports
 */
-import {FlightContext} from '../../../flightContext.jsx';
+import {FlightContext} from '../../../../flightContext.jsx';
 
 /* 
     Reactstrap imports

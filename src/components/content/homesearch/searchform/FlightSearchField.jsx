@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 /* 
     Context imports
 */
-import { FlightContext } from '../../../flightContext.jsx';
+import { FlightContext } from '../../../../flightContext.jsx';
 
 /* 
     Reactstrap improts
@@ -51,7 +51,7 @@ const FlightSearchField = ( { identifier, placeholder } ) => {
     const handleDBLoad = ( inputQuery ) => {
         if ( Object.keys( iataDB )[0] !== inputQuery[0].toUpperCase() || Object.keys( iataDB )[0] === undefined )
         {
-            setIataDB( require( `../../../db_LOCATION/${inputQuery[0].toUpperCase()}_airports.json` ) );
+            setIataDB( require( `../../../../db_LOCATION/${inputQuery[0].toUpperCase()}_airports.json` ) );
         }
     }
 

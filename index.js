@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 /* 
     Global variable imports
@@ -25,11 +25,9 @@ const Index = () => (
         <Router basename={routes().basename}>
             <Suspense fallback={<p>Interface loading...</p>}>
                 <Header />
-                    <Switch>
-                    <Route path="/" render={( routeProps ) => {
-                        return <Content pageContent={routeProps.location.pathname} />;
-                        }} />
-                    </Switch>
+                    <Route path="/" render={( routeProps ) => (
+                        <Content {...routeProps} />
+                    )}/>
                 <Footer />
             </Suspense>
         </Router>

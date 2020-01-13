@@ -3,12 +3,12 @@ import React, {useContext, useEffect, useState} from 'react';
 /* 
     Context imports
 */
-import {FlightContext} from '../../../flightContext.jsx';
+import {FlightContext} from '../../../../flightContext.jsx';
 
 /* 
     General imports
 */
-import {date} from '../../../tools.js';
+import {date} from '../../../../tools.js';
 
 /* 
     Reactstrap improts
@@ -19,38 +19,37 @@ import {    Button, Col,
 
 
 const FlightDatePicker = ({label, identifier}) => {
+    //  Context
     const {state, dispatch} = useContext(FlightContext);
+    //  State - Is this datepicker active?
     const [active, setActive] = useState(false);
+    //  State - Date, individually set day/month/year
+    const [day, setDay] = useState(date().day);
+    const [month, setMonth] = useState(date().month);
+    const [year, setYear] = useState(date().year);
     
+    //  On mount, set context date
+    useEffect(()=>{
+        dispatch({
+            target: identifier,
+            payload: date().todayFormatted
+        });       
+    },[]);
+
+    //  On update, disable return_from datepicker when flight_type is 'oneway'
     useEffect(()=>{
         const flightType = state.find(obj => obj.key === 'flight_type');
-    
         if (flightType.value === 'oneway' && identifier === 'return_from') {
             setActive(false);
         } else {
             setActive(true);
         }
-    })
-
-    //  DATE MANAGEMENT
-    //  * Init individual day/month/year
-    //      - Used for constructing the date
-    const [day, setDay] = useState(date().day);
-    const [month, setMonth] = useState(date().month);
-    const [year, setYear] = useState(date().year);
-
-    //  * Get the actual date which was initializd to context in Content.jsx
-    const contextDate = () => {
-        const dateObject = state.find((obj)=>{
-            if (obj.key === identifier) return obj;
-        })
-        return dateObject.value;
-    }
-    
-    //  * Output the date to the format stored in context
+    });
+  
+    //  Format the date for display & to dispatch to context
     const outputDate = date().formatted(day, month, year);
     
-    //  * Submit date to context - specific to identifier prop
+    //  Submit date to context - specific to identifier prop
     const submitDate = () => {
         dispatch({
             target: identifier,
@@ -66,7 +65,7 @@ const FlightDatePicker = ({label, identifier}) => {
         <Dropdown isOpen={dropdownOpen} toggle={toggle} /* className="w-50" */>
             
             <DropdownToggle color="light" caret className="w-100">
-                <span className="text-dark">{label}: </span><span className="text-success">{contextDate()}</span>
+                <span className="text-dark">{label}: </span><span className="text-success">{outputDate}</span>
             </DropdownToggle>
             
             <DropdownMenu className="p-0 m-0">

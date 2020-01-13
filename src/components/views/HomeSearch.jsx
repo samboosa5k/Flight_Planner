@@ -1,40 +1,34 @@
-import React, { useState, Suspense } from 'react';
-
-/* 
-    Reactstrap imports
-*/
-import { Container, Jumbotron, Card, CardBody } from 'reactstrap';
+import React, { Suspense } from 'react';
+import PropTypes from 'prop-types';
 
 /*
-    Component imports: Content
+    Component imports: HomeSearch 'view'
+    - SearchForm.jsx
+    - SearchResults.jsx
 */
-const FlightDetailToggles = React.lazy( () => import( '../content/homesearch/FlightDetailToggles.jsx' ) );
-const FlightSearchForm = React.lazy( () => import( '../content/homesearch/FlightSearchForm.jsx' ) );
-const FlightSearchSubmit = React.lazy( () => import( '../content/homesearch/FlightSearchSubmit.jsx' ) );
+const SearchForm = React.lazy( () => import( '../content/homesearch/SearchForm.jsx' ) );
+const SearchResults = React.lazy( () => import( '../content/homesearch/SearchResults.jsx' ) );
 
-const HomeSearch = () => {
 
+//  Note:   Clean loading of 'view' components
+const HomeSearch = ({queryString}) => {
     return (
         <>
-            <Container className="searchform-container">
-                
-                <Jumbotron fluid className="pb-0 mb-0">
-                    <h1 className="text-center">Flights</h1>
-                </Jumbotron>
-                
-                <Card className="searchform">
-                    <CardBody className="p-3">
-                        <Suspense fallback={<p>Loading flight search form...</p>}>
-                            <FlightDetailToggles/>
-                            <FlightSearchForm/>
-                            <FlightSearchSubmit/>
-                        </Suspense>
-                    </CardBody>
-                </Card>
-
-            </Container>
+            <Suspense fallback={<p>Loading flight search form...</p>}>
+                <SearchForm/>
+            </Suspense>
+            {
+            queryString && 
+            <Suspense fallback={<p>Loading flight search results...</p>}>
+                <SearchResults queryString={queryString}/>
+            </Suspense>
+            }
         </>
     )
+}
+
+HomeSearch.PropTypes = {
+    queryString: PropTypes.string
 }
 
 export default HomeSearch;

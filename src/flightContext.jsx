@@ -7,11 +7,11 @@ import React from 'react';
 export const flightParameters = [ 
     {
         "key": "fly_from",
-        "value": "Amsterdam"
+        "value": "AMS"
     },
     {
         "key": "fly_to",
-        "value": "Dublin"
+        "value": "DUB"
     },
     {
         "key": "date_from",

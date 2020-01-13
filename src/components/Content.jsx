@@ -10,7 +10,7 @@ import { flightParameters, FlightContext, flightParamReducer } from '../flightCo
 /* 
     General imports
 */
-import {date} from '../tools.js';
+import {routes as r} from '../locations.js';
 
 /* 
     Reactstrap imports
@@ -24,27 +24,21 @@ const HomeSearch = React.lazy(()=> import('./views/HomeSearch.jsx'));
 
 /* 
     Switch:
-    - show a different view based on incoming props from 'index.js'
-    - each view will load a different set of components
-        - if the components are unique to the 'view', they will come from
-        the similarly named folder in /content/*view_name*
-
+    - show a different 'view' based on incoming 'routeProps.location.pathname' from 'index.js'
+    - easier than the react router switch
 */
-const ContentSwitch = ( {pageContent} ) => {
-    switch(pageContent){
-        case '/':
-            return (
-                <HomeSearch />
-            );
+const ContentSwitch = ( {page, search} ) => {
+    switch(page){
+        case (r().flights):
+            if(search !== ''){
+                return (<HomeSearch queryString={search}/>);
+            } else {
+                return (<HomeSearch/>);
+            }
             break;
-        case '/search':
+        case (r().specialOffers):
             return (
-                <p>This is the content {pageContent}</p>
-            );
-            break;
-        case '/flight_details':
-            return (
-                <p>This is the content {pageContent}</p>
+                <p>These are the special offers</p>
             );
             break;
         default:
@@ -58,28 +52,19 @@ const ContentSwitch = ( {pageContent} ) => {
 //  Note:   rather than using the <main> tag with <Container> at the top level in 'index.js',
 //          wrapping the content like below is neater & more efficient
 
-const Content = ( { pageContent }) => {
+const Content = ( { location }) => {
+    //  Context - Here it all starts...
     const [state, dispatch] = useReducer(flightParamReducer, flightParameters);
 
-    //  Init context date based on today
-    //  - Init as high as possible
-    useEffect(()=>{
-        dispatch({
-            target: 'date_from',
-            payload: date().todayFormatted
-        });
-        
-        dispatch({
-            target: 'return_from',
-            payload: date().todayFormatted
-        });        
-    },[]);
+    //  Router props
+    const page = location.pathname;
+    const search = location.search;
 
     return(
         <FlightContext.Provider value={{state, dispatch}}>
                 <Container className="content my-4" fluid="md" tag="main">
                     <Suspense fallback={<p>Loading page content...</p>}>
-                        <ContentSwitch pageContent={pageContent}/>
+                        <ContentSwitch page={page} search={search}/>
                     </Suspense>
                 </Container>
         </FlightContext.Provider>
@@ -87,7 +72,7 @@ const Content = ( { pageContent }) => {
 }
 
 Content.propTypes = {
-    pageContent: PropTypes.string.isRequired,
+    location: PropTypes.object.isRequired,
 }
 
 export default Content;

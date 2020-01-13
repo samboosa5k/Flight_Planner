@@ -10,12 +10,20 @@
 export const routes = () => {
     const basename = '/projects/flight_planner';
 
-    return { basename };
+    //  Individual pages
+    const flights = '/flights';
+    const specialOffers = '/special_offers';
+
+    return { 
+        basename,
+        flights,
+        specialOffers 
+    };
 }
 
 //  URLs/EXTERNAL
 export const urls = () => {
-    const kiwiBase = 'https://api.skypicker.com/flights?';
+    const kiwiBase = 'https://api.skypicker.com/flights';
 
     return { kiwiBase };
 }
