@@ -3,26 +3,27 @@
 Flight planner React project done using the Kiwi.com flight-search Api
 
 ## Stack
-React
+* Javascript (just vanilla)
+* React
 * [Reactstrap](https://reactstrap.github.io/)
-Bootstrap
+* Bootstrap
 * [Bootstrap Icons](https://github.com/twbs/icons)
+* Webpack
 
 ### Process
-
 * Make skeleton components with text
 * Setup routing/verify it's working
 * Position everything 'correctly' with Bootstrap/Reactstrap
 * Make smaller subcomponents
 * Add actual content
+* Optimize
+* Deploy to Github pages
 
-* Optimization:
+### Optimization:
 ```
-Split code into chunks (code-splitting) separating bundle chunks/vendors etc.
-```
-* Deploy:
-```
-Made special adjustments to deploy on GH-pages subfolder
+- React Lazy loading / webpack
+- Split code into chunks (code-splitting) separating bundle chunks/vendors etc.
+- Split library of airports into separate JSON files
 ```
 
 ### Installation
