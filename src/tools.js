@@ -4,11 +4,18 @@
 */
 
 export const date = () => {
-    const d = new Date(); 
-    const day = d.getDate().toString();
-    const month = (d.getMonth() +1).toString();
-    const year = d.getFullYear().toString();
+    const d = (t) => { 
+        if(t){
+            return new Date(t*1000) ;
+        } else {
+            return new Date();
+        }
+    }; 
+    const day = d().getDate().toString();
+    const month = (d().getMonth() +1).toString();
+    const year = d().getFullYear().toString();
 
+    //  Date related
     const todayFormatted = `${day}/${month}/${year}`;
     const formatted = (inputDay, inputMonth, inputYear) => {
         return `${inputDay}/${inputMonth}/${inputYear}`
@@ -17,16 +24,21 @@ export const date = () => {
         return new Date(inputYear, inputMonth, 0).getDate();
     }
 
+    //  Time related
+    const timeFromUnix = (t) => {
+        return d(t).toLocaleTimeString();
+    }
+
     return {
+        d,
         day,
         month,
         year,
         todayFormatted,
         formatted,
-        nrDaysInMonth
+        timeFromUnix
     }
 }
-
 
 /* 
     Url builder for Flight Planner

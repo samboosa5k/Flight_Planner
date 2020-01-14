@@ -15,7 +15,7 @@ import {urlBuilder} from '../../../../tools.js';
 /* 
     Reactstrap imports
 */
-import {Row, Col, Button, NavLink as RSNavLink} from 'reactstrap';
+import {Row, Button, NavLink as RSNavLink} from 'reactstrap';
 
 /*
     Component imports: Icon
@@ -73,14 +73,12 @@ const FlightSearchSubmit = () => {
 
     return (
         
-        <Row className="mt-3 text-center">
-            <Col>
-                <RSNavLink to={builtNavLinkUrl} onClick={handleSubmit} tag={NavLink}>
+        <Row className="mt-3">
+                <RSNavLink className="ml-auto mr-auto" to={builtNavLinkUrl} onClick={handleSubmit} tag={NavLink}>
                     <Button color="primary" style={{borderRadius:"1.5rem"}} >
                     <IconSearch color="white" size="18"/> Submit
                     </Button>
                 </RSNavLink>
-            </Col>
         </Row>
         
     );

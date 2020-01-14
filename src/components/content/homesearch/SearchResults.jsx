@@ -39,19 +39,11 @@ const SearchResults = ({queryString}) => {
     //  State - json data from the Kiwi fetch
     const [flightsFound, setFlightsFound] = useState([]);
 
-    //  Failsafe, for if somebody saves the url but doesn't actually do a new search
-    const fetchUrl = () => {
-        const contextUrl = state.find((obj) => obj.key === 'built_fetch_url').value;
-        const routeUrl = urls().kiwiBase + queryString;
-        if(contextUrl !== ''){
-            return contextUrl;
-        } else {
-            return routeUrl;
-        }
-    }
+    //  Important variables
+    const contextUrl = state.find((obj) => obj.key === 'built_fetch_url').value;
 
-    const doFetch = () => {
-        fetch(fetchUrl())
+    const doFetch = (inputUrl) => {
+        fetch(inputUrl)
             .then(kiwiResponse => {
                 if(kiwiResponse.ok){
                     return kiwiResponse.json();
@@ -68,15 +60,15 @@ const SearchResults = ({queryString}) => {
 
     // On mount, do the fetch
     useEffect(()=>{
-        setCurrentSearch(queryString);
-        doFetch();
+        setCurrentSearch(contextUrl);
+        doFetch(contextUrl);
     },[]);
     
-    // On update, do the fetch - again
+    // On update, if the context-url changes, fetch again
     useEffect(()=>{
-        if (queryString !== currentSearch){
-            setCurrentSearch(queryString);
-            doFetch();
+        if (contextUrl !== currentSearch){
+            setCurrentSearch(contextUrl);
+            doFetch(contextUrl);
         }
     });
 
@@ -84,13 +76,9 @@ const SearchResults = ({queryString}) => {
         <>
             <Container className="searchresults-container mb-3">
                 
-                <Card className="searchresults">
-                    <CardBody className="p-3">
                         <Suspense fallback={<p>Loading flight search results...</p>}>
                             <ResultsList flightsFound={flightsFound}/>
                         </Suspense>
-                    </CardBody>
-                </Card>
 
             </Container>
         </>

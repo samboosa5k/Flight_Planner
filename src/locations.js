@@ -11,11 +11,13 @@ export const routes = () => {
     const basename = '/projects/flight_planner';
 
     //  Individual pages
+    const home = '/';
     const flights = '/flights';
     const specialOffers = '/special_offers';
 
     return { 
         basename,
+        home,
         flights,
         specialOffers 
     };

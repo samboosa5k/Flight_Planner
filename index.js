@@ -24,11 +24,13 @@ const Index = () => (
     <>
         <Router basename={routes().basename}>
             <Suspense fallback={<p>Interface loading...</p>}>
-                <Header />
                     <Route path="/" render={( routeProps ) => (
+                        <>
+                        <Header />
                         <Content {...routeProps} />
+                        <Footer />
+                        </>
                     )}/>
-                <Footer />
             </Suspense>
         </Router>
     </>
