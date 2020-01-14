@@ -20,17 +20,17 @@ Flight planner React project done using the Kiwi.com flight-search Api
 * Deploy to Github pages
 
 ### Optimization
-```
 - React Lazy loading / webpack
 - Split code into chunks (code-splitting) separating bundle chunks/vendors etc.
 - Split library of airports into separate JSON files
-```
 
 ### Funny problems
 **Green outline flashing around multiple components:**
+
 Took me a while to figure out this one; at first I thought the issue was Reactstrap doing something strange with animations/style toggling which I had no influence over, but the issue was actually with React & Bootstrap.
 
 **Solution:**
+
 Remove the following from bootstrap.min.css where the style is green(ish)
 ```
 .dropdown-toggle:focus
