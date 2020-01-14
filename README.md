@@ -54,3 +54,4 @@ dist/index.html
 * [Tomasz Kajtoch](https://tsh.io/blog/code-splitting-with-react-webpack-for-frontend-optimisation/) - Guide on code splitting
 * [Glenn Stovall](https://glennstovall.com/roll-your-own-redux/) - Very useful useContext/useReducer hook guide
 * [Enmanuel Durán](https://enmascript.com/articles/2018/10/12/the-power-of-dynamic-imports-in-javascript-and-react) - Dynamically importing library/db json files
+* [Atta Comsian](https://attacomsian.com/blog/javascript-fetch-api) - Refreshing take on fetch/then error handling
