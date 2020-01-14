@@ -84,7 +84,7 @@ const FlightDetailToggles = () => {
 
         <Dropdown nav isOpen={dropdownOpen === 'adults'} toggle={() => toggle( 'adults' )}>
             <DropdownToggle nav caret>
-                    <span className="text-secondary">Passengers</span> <Badge className="p-2" color="success">{passengers}</Badge>
+                    <span className="text-secondary">Passengers</span> <Badge className="p-2 badge-success">{passengers}</Badge>
             </DropdownToggle>
             <DropdownMenu id="adults">
                 <DropdownItem onClick={(e)=>{onToggleChange(e)}}>1</DropdownItem>

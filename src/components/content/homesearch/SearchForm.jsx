@@ -20,11 +20,11 @@ const FlightSearchSubmit = React.lazy( () => import( './searchform/FlightSearchS
 const SearchForm = () => {
     return (
         <>
-            <div className="searchform-container container mb-3">
+            <Container className="searchform-container mb-3">
                 
-                <div className="jumbotron jumbotron-fluid pb-0 mb-0">
-                    <h1 className="text-center">Flights</h1>
-                </div>
+                <Jumbotron fluid className="pb-0 mb-0" style={{backgroundColor:"rgba(224,249,249, 0.4)"}}>
+                    <h1 className="display-3 text-center">Flights</h1>
+                </Jumbotron>
                 
                 <Card className="searchform">
                     <CardBody className="p-3">
@@ -36,7 +36,7 @@ const SearchForm = () => {
                     </CardBody>
                 </Card>
 
-            </div>
+            </Container>
         </>
     )
 }
