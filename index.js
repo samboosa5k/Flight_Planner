@@ -19,6 +19,9 @@ const Footer = React.lazy( () => import( './src/Components/Footer.jsx' ) );
     Style imports
 */
 import './src/styles/bootstrap.min.css';
+import './src/styles/bootstrap-grid.min.css';
+import './src/styles/bootstrap-reboot.min.css';
+import './src/styles/bootstrap-utilities.min.css';
 
 const Index = () => (
     <>

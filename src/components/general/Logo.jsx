@@ -7,12 +7,12 @@ import {routes as r} from '../../locations.js';
 /* 
     Reactstrap imports
 */
-import { NavbarBrand, } from 'reactstrap';
+import { NavLink as RSNavLink } from 'reactstrap';
 
 const Logo = () => (
-    <NavbarBrand className="logo">
-        <NavLink to={r().home}>Gooble Flights</NavLink>
-    </NavbarBrand>
+    <RSNavLink to={r().home} className="logo" tag={NavLink}>
+        Gooble Flights
+    </RSNavLink>
 )
 
 export default Logo;

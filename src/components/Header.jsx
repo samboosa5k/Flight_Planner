@@ -12,8 +12,8 @@ import Logo from './general/Logo.jsx';
 
 
 const Header = () => (
-    <header className="header bg-light">
-        <Navbar expand="md">
+    
+        <Navbar expand="md" className="header bg-light" tag="header">
             <Logo />
             <Nav>
                 <NavItem>
@@ -21,7 +21,7 @@ const Header = () => (
                 </NavItem>
                 </Nav>
         </Navbar>
-    </header>
+
 )
 
 export default Header;
