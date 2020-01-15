@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {BrowserRouter as Router, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 /* 
     Context imports
@@ -28,10 +28,10 @@ const FlightSearchSubmit = () => {
     const {state, dispatch} = useContext(FlightContext);
 
     //  Get flight type
-    const flightType = state.find(obj => obj.key === 'flight_type');
+    //const flightType = state.find(obj => obj.key === 'flight_type');
     
     //  Filter context keys before url-building
-    const urlParams = state.filter((obj)=>{
+    /* const urlParams_back = state.filter((obj)=>{
         if(obj.key !== 'built_fetch_url'){
             if(flightType.value === 'oneway') {
                 if(obj.key !== 'return_from'){
@@ -41,7 +41,9 @@ const FlightSearchSubmit = () => {
                 return obj.key;
             };
         }
-    });
+    }); */
+
+    const urlParams = Object.entries(state[0].flightParameters);
     
     //  Build the fetch-URL
     const builtFetchUrl = urlBuilder().construct(
@@ -63,18 +65,37 @@ const FlightSearchSubmit = () => {
         urlParams
     );
 
+    //  Handle the api-fetching
+    const doFetch = (inputUrl) => {
+        fetch(inputUrl)
+            .then(kiwiResponse => {
+                if(kiwiResponse.ok){
+                    return kiwiResponse.json();
+                } else {
+                    return Promise.reject(kiwiResponse.status)
+                }
+            })
+            .then(kiwiData => {
+                const {data} = kiwiData;
+                //  Send data to context
+                dispatch({
+                    target: 'flightsFound',
+                    payload: data
+                }) 
+            })
+            .catch(error => console.log('FlightSearchSubmit.jsx error: ', error));
+    }
+
     //  Handle submit button
     const handleSubmit = () => {
-        dispatch({
-                    target: 'built_fetch_url',
-                    payload: builtFetchUrl
-                }) 
+        console.log('Submit and built url: ', builtFetchUrl);
+        doFetch(builtFetchUrl);
     }
 
     return (
         
         <Row className="mt-3">
-                <RSNavLink className="ml-auto mr-auto" to={builtNavLinkUrl} onClick={handleSubmit} tag={NavLink}>
+                <RSNavLink className="ml-auto mr-auto" onClick={handleSubmit} to={builtNavLinkUrl} tag={NavLink}>
                     <Button color="primary" style={{borderRadius:"1.5rem"}} >
                     <IconSearch color="white" size="18"/> Submit
                     </Button>

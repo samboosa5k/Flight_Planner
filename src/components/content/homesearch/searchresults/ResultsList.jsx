@@ -1,29 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, {useContext} from 'react';
+
+/* Context imports */
+import {FlightContext} from '../../../../flightContext.jsx';
 
 /* General Imports */
 import {date} from '../../../../tools.js';
 
 /* Reactstrap imports */
-import { Row, Col, Card, Table, Spinner } from 'reactstrap';
+import { Card, Table } from 'reactstrap';
 
-const ResultsList = ({flightsFound}) => {
-    //  If flightsFound prop not loaded, show spinner, else format the data
-    //  - No state invovled, no lifecycles, this is the easiest solution to this problem thus far...
-    if(flightsFound === undefined || flightsFound.length < 1){
-        return (
-            <Row className="mt-3 text-center">
-                <Col>
-                    <Spinner color="primary" />
-                </Col>
-            </Row>
-        );
-    } else {
+const ResultsList = () => {
+    const {state} = useContext(FlightContext);
+
         return (
             <Card className="p-3">
                 <Table className="mt-1 mb-1">
                     <tbody>
                         {
-                            flightsFound.map( ( flight, index ) => (
+                            state[2].flightsFound.map( ( flight, index ) => (
                                 <tr key={`flight_list_result_${index}`}>
                                     <td className="col-4 align-middle text-left">
                                         <p className="m-0 font-weight-bold">{date().timeFromUnix( flight.dTime )} - {date().timeFromUnix( flight.aTime )}</p>
@@ -43,6 +37,6 @@ const ResultsList = ({flightsFound}) => {
                 </Table>
             </Card>
         )
-    }
+    
 }
 export default ResultsList;

@@ -46,7 +46,25 @@ export const date = () => {
     - base = the base url
     - paramValArray = array of objects, consisting of parameter name & value
 */
+
 export const urlBuilder = () => {
+    const buildQueryString = (paramValArray) => {
+        let query = '?';
+        paramValArray.forEach((arr,index)=>{
+            const amp = (index+1 === paramValArray.length) ? '' : '&';
+            query += `${arr[0]}=${arr[1]}${amp}`;
+        })
+        return query;
+    }
+
+    const construct = (base, paramValArray) => {
+        return base + buildQueryString(paramValArray);
+    }
+
+    return {construct}
+}
+
+/* export const urlBuilder = () => {
     const buildQueryString = (paramValArray) => {
         let query = '?';
         paramValArray.forEach((obj,index)=>{
@@ -61,4 +79,4 @@ export const urlBuilder = () => {
     }
 
     return {construct}
-}
+} */

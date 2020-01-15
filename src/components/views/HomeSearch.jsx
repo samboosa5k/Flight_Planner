@@ -1,6 +1,11 @@
 import React, { Suspense, useContext } from 'react';
 import PropTypes from 'prop-types';
 
+/* 
+    Context imports
+*/
+import {FlightContext} from '../../flightContext.jsx';
+
 /*
     Component imports: HomeSearch 'view'
     - SearchForm.jsx
@@ -12,22 +17,25 @@ const SearchResults = React.lazy( () => import( '../content/homesearch/SearchRes
 
 //  Note:   Clean loading of 'view' components
 const HomeSearch = ({queryString}) => {
+    const {state} = useContext(FlightContext);
+
     return (
         <>
             <Suspense fallback={<p>Loading flight search form...</p>}>
                 <SearchForm/>
             </Suspense>
+
             {
-            queryString && 
-            <Suspense fallback={<p>Loading flight search results...</p>}>
-                <SearchResults queryString={queryString}/>
-            </Suspense>
+                state[2].flightsFound.length > 0 &&
+                <Suspense fallback={<p>Loading flight search results...</p>}>
+                <SearchResults/>
+                </Suspense>
             }
         </>
     )
 }
 
-HomeSearch.PropTypes = {
+HomeSearch.propTypes = {
     queryString: PropTypes.string
 }
 

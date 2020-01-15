@@ -39,47 +39,12 @@ const SearchResults = ({queryString}) => {
     //  State - json data from the Kiwi fetch
     const [flightsFound, setFlightsFound] = useState([]);
 
-    //  Important variables
-    const contextUrl = state.find((obj) => obj.key === 'built_fetch_url').value;
-
-    const doFetch = (inputUrl) => {
-        fetch(inputUrl)
-            .then(kiwiResponse => {
-                if(kiwiResponse.ok){
-                    return kiwiResponse.json();
-                } else {
-                    return Promise.reject(kiwiResponse.status)
-                }
-            })
-            .then(kiwiData => {
-                const {data} = kiwiData;
-                setFlightsFound(data);
-            })
-            .catch(error => console.log('SearchResults.jsx fetch error: ', error));
-    }
-
-    // On mount, do the fetch
-    useEffect(()=>{
-        setCurrentSearch(contextUrl);
-        doFetch(contextUrl);
-    },[]);
-    
-    // On update, if the context-url changes, fetch again
-    useEffect(()=>{
-        if (contextUrl !== currentSearch){
-            setCurrentSearch(contextUrl);
-            doFetch(contextUrl);
-        }
-    });
-
     return (
         <>
             <Container className="searchresults-container mb-3">
-                
-                        <Suspense fallback={<p>Loading flight search results...</p>}>
-                            <ResultsList flightsFound={flightsFound}/>
-                        </Suspense>
-
+                <Suspense fallback={<p>Loading flight search results...</p>}>
+                    <ResultsList />
+                </Suspense>
             </Container>
         </>
     )

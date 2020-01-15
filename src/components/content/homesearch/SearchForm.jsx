@@ -29,8 +29,8 @@ const SearchForm = () => {
                 <Card className="searchform">
                     <CardBody className="p-3">
                         <Suspense fallback={<p>Loading flight search form...</p>}>
-                            <FlightDetailToggles/>
-                            <FlightSearchForm/>
+                            {/* <FlightDetailToggles/>
+                            <FlightSearchForm/> */}
                             <FlightSearchSubmit/>
                         </Suspense>
                     </CardBody>
