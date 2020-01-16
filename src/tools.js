@@ -63,20 +63,3 @@ export const urlBuilder = () => {
 
     return {construct}
 }
-
-/* export const urlBuilder = () => {
-    const buildQueryString = (paramValArray) => {
-        let query = '?';
-        paramValArray.forEach((obj,index)=>{
-            const amp = (index+1 === paramValArray.length) ? '' : '&';
-            query += `${obj.key}=${obj.value}${amp}`;
-        })
-        return query;
-    }
-
-    const construct = (base, paramValArray) => {
-        return base + buildQueryString(paramValArray);
-    }
-
-    return {construct}
-} */

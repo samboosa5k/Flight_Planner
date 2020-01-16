@@ -68,19 +68,23 @@ const FlightSearchField = ( { identifier, placeholder } ) => {
     }
 
     const handleSelection = (airportName, suggIndex) => {
+        const target = 'flightParameters';
         const iata = suggestions[suggIndex]['key'];
-        //  Set search field / dropdown state
+
+        //  Dirty/clean solution: (See FlightDetailToggles.jsx for better explanation)
+        const tempContext = state[0].flightParameters;
+        tempContext[identifier] = iata;
+
+        //  Update State for search field / dropdown
         setQuery(airportName);
         setDropState( false );
 
         // Dispatch to context
         dispatch({
-            target: identifier,
-            payload: iata
+            target: target,
+            payload: tempContext
         })
-
     }
-
 
     return (
         <Dropdown isOpen={dropState} toggle={() => { }}>

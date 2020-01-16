@@ -10,8 +10,7 @@ export const flightContextStore = [
             "fly_from": "AMS",
             "fly_to": "DUB",
             "date_from": "10/02/2020",
-            "return_from": "10/02/2020",
-            "flight_type": "round",
+            "flight_type": "oneway",
             "adults": "1",
             "selected_cabins": "M",
             "limit": "10",
@@ -39,7 +38,17 @@ export const flightContextReducer = ( state, action ) => {
                 } else {
                     return obj;
                 }
-            })
+            });
+            break;
+        case('flightParameters'):
+            return state.map(obj => {
+                if('flightParameters' in obj){
+                    return {flightParameters: action.payload};
+                } else {
+                    return obj;
+                }
+            });
+            break;
         default:
             console.log('Context reducer: ', 'No valid target provided');
             return state;

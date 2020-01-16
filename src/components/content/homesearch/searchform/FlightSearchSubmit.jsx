@@ -23,27 +23,13 @@ import {Row, Button, NavLink as RSNavLink} from 'reactstrap';
 import {IconSearch} from '../../../general/Icons.jsx';
 
 
-const FlightSearchSubmit = () => {
+const FlightSearchSubmit = ({ignores}) => {
     //  Context
     const {state, dispatch} = useContext(FlightContext);
 
-    //  Get flight type
-    //const flightType = state.find(obj => obj.key === 'flight_type');
-    
-    //  Filter context keys before url-building
-    /* const urlParams_back = state.filter((obj)=>{
-        if(obj.key !== 'built_fetch_url'){
-            if(flightType.value === 'oneway') {
-                if(obj.key !== 'return_from'){
-                    return obj.key;
-                }
-            } else {
-                return obj.key;
-            };
-        }
-    }); */
-
-    const urlParams = Object.entries(state[0].flightParameters);
+    const urlParams = Object.entries(state[0].flightParameters).filter(arr => {
+        if(ignores.includes(arr[0]) === false) return arr;
+    });
     
     //  Build the fetch-URL
     const builtFetchUrl = urlBuilder().construct(

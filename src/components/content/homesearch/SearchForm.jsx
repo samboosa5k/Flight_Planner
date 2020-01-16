@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { useState, Suspense } from 'react';
 
 /* 
     Reactstrap imports
@@ -18,6 +18,9 @@ const FlightSearchSubmit = React.lazy( () => import( './searchform/FlightSearchS
 
 //  Search section on 'HomeSearch' view
 const SearchForm = () => {
+    //  State - manage which fields are inactive based on other toggles
+    const [ignores, setIgnores] = useState(['return_from']);
+
     return (
         <>
             <Container className="searchform-container mb-3">
@@ -29,9 +32,9 @@ const SearchForm = () => {
                 <Card className="searchform">
                     <CardBody className="p-3">
                         <Suspense fallback={<p>Loading flight search form...</p>}>
-                            {/* <FlightDetailToggles/>
-                            <FlightSearchForm/> */}
-                            <FlightSearchSubmit/>
+                            <FlightDetailToggles ignores={ignores} setIgnores={setIgnores}/>
+                            <FlightSearchForm ignores={ignores}/>
+                            <FlightSearchSubmit ignores={ignores}/>
                         </Suspense>
                     </CardBody>
                 </Card>
