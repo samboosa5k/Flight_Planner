@@ -3,6 +3,11 @@ import React from 'react';
 /*
     Context - init context and default state
     - Partner = picky, this is ESSENTIAL
+    - Default/fixed parameters (for now, change later):
+        - max_stopovers
+        - sort (by price, time)
+        - asc
+        - limit
 */
 export const flightContextStore = [
     {
@@ -13,6 +18,10 @@ export const flightContextStore = [
             "flight_type": "oneway",
             "adults": "1",
             "selected_cabins": "M",
+            "max_stopovers": "0",
+            "curr": "EUR",
+            "sort": "price",
+            "asc": "1",
             "limit": "10",
             "partner": "picky",
         }

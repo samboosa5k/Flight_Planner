@@ -28,7 +28,7 @@ const HomeSearch = ({queryString}) => {
             {
                 state[2].flightsFound.length > 0 &&
                 <Suspense fallback={<p>Loading flight search results...</p>}>
-                <SearchResults/>
+                    <SearchResults/>
                 </Suspense>
             }
         </>

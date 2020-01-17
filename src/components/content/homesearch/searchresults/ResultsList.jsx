@@ -20,7 +20,7 @@ const ResultsList = () => {
                             state[2].flightsFound.map( ( flight, index ) => (
                                 <tr key={`flight_list_result_${index}`}>
                                     <td className="col-4 align-middle text-left">
-                                        <p className="m-0 font-weight-bold">{date().timeFromUnix( flight.dTime )} - {date().timeFromUnix( flight.aTime )}</p>
+                                        <p className="m-0 font-weight-bold">{date().timeFromUnix( flight.dTimeUTC )} - {date().timeFromUnix( flight.aTimeUTC )}</p>
                                         <p className="m-0 text-secondary">{flight.airlines[0]}</p>
                                     </td>
                                     <td className="col-4 align-middle text-center">
@@ -28,7 +28,7 @@ const ResultsList = () => {
                                         <p className="m-0 text-secondary">{flight.flyFrom} - {flight.flyTo}</p>
                                     </td>
                                     <td className="col-4 align-middle text-right">
-                                        <p className="m-0 text-success">{flight.price}</p>
+                                        <p className="m-0 text-success">&euro; {flight.price}</p>
                                     </td>
                                 </tr>
                             ) )
