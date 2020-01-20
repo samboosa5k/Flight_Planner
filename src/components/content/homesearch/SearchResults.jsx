@@ -1,26 +1,15 @@
-import React, { useState, useEffect, useContext, Suspense } from 'react';
-
-/* 
-    Context imports
-*/
-import {FlightContext} from '../../../flightContext.jsx';
-
-/* 
-    General imports
-*/
-import {urls} from '../../../locations.js';
-import { date } from '../../../tools.js';
+import React, { Suspense } from 'react';
 
 /* 
     Reactstrap imports
 */
-import { Container, Card, CardBody } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 /*
     Component imports: SearchResults
     - ResultsList.jsx
 */
-const ResultsList = React.lazy(()=> import('./searchresults/ResultsList.jsx'));
+import ResultsList from './searchresults/ResultsList.jsx';
 
 /* 
     queryString
@@ -32,19 +21,13 @@ const ResultsList = React.lazy(()=> import('./searchresults/ResultsList.jsx'));
 
 //  Results section on 'HomeSearch' view (conditional)
 const SearchResults = ({queryString}) => {
-    //  Context
-    const {state, dispatch} = useContext(FlightContext);
-    //  State - determines when to update
-    const [currentSearch, setCurrentSearch] = useState('');
-    //  State - json data from the Kiwi fetch
-    const [flightsFound, setFlightsFound] = useState([]);
 
     return (
         <>
-            <Container className="searchresults-container mb-3">
-                <Suspense fallback={<p>Loading flight search results...</p>}>
+            <Container className="searchresults-container mb-3 border-0">
+
                     <ResultsList />
-                </Suspense>
+
             </Container>
         </>
     )

@@ -5,9 +5,6 @@ import React, { useContext} from 'react';
 */
 import {FlightContext} from '../../../../flightContext.jsx';
 
-/* General Imports */
-import {date} from '../../../../tools.js';
-
 /* Reactstrap imports */
 import { Button } from 'reactstrap';
 
@@ -59,15 +56,15 @@ const FlightSearchSort = ({doFetch}) => {
 
     return(
         <div id="sort" className="float-right">
-            <span>Sort: </span>
-            <Button name="dTime" onClick={(e)=>{handleSort(e)}} outline color="primary" style={{borderRadius:"1.5rem"}} >
+            <span>Sort by: </span>
+            <Button name="dTime" outline color="primary" className="ml-lg-3 ml-md-2" style={{borderRadius:"1.5rem"}} onClick={(e)=>{handleSort(e)}}>
                 <IconTag color="primary" size="18"/> Departure
             </Button>
-            <Button name="price" onClick={(e)=>{handleSort(e)}} outline color="primary" style={{borderRadius:"1.5rem"}} >
+            <Button name="price" outline color="primary" className="ml-lg-3 ml-md-2" style={{borderRadius:"1.5rem"}} onClick={(e)=>{handleSort(e)}}>
                 <IconTag color="primary" size="18"/> Price
             </Button>
-            <Button name="duration" onClick={(e)=>{otherSort(e)}} outline color="primary" style={{borderRadius:"1.5rem"}} >
-                <IconWatch color="primary" size="18"/> Flight duration
+            <Button name="duration" outline color="primary" className="ml-lg-3 ml-md-2" style={{borderRadius:"1.5rem"}} onClick={(e)=>{otherSort(e)}} >
+                <IconWatch color="primary" size="18"/> Duration
             </Button>
         </div>
     )

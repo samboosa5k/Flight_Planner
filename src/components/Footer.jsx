@@ -25,7 +25,7 @@ const Footer = () => {
     };
         
     return (
-        <footer className="footer bg-light pb-2">
+        <footer className="footer bg-light pb-2 flex-grow-0">
             <Container fluid="md">
                 <Nav fluid="md">
 

@@ -13,13 +13,13 @@ import Logo from './general/Logo.jsx';
 
 const Header = () => (
     
-        <Navbar expand="md" className="header bg-light" tag="header">
+        <Navbar expand="md" className="header bg-light flex-grow-0" tag="header">
             <Logo />
             <Nav>
                 <NavItem>
                     This is the navbar...
                 </NavItem>
-                </Nav>
+            </Nav>
         </Navbar>
 
 )

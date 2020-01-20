@@ -91,6 +91,7 @@ const FlightSearchField = ( { identifier, placeholder } ) => {
 
             <Input
                 type="text"
+                style={{padding:"1.5rem 1rem 1.5rem 1rem", border:"1px solid rgba(0, 0, 0, 0.125)"}}
                 identifier={identifier}
                 placeholder={placeholder}
                 value={query}

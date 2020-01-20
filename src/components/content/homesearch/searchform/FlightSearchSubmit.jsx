@@ -32,9 +32,9 @@ const FlightSearchSubmit = ({urlParams, doFetch}) => {
 
     return (
         
-        <Row className="mt-3">
-                <RSNavLink className="ml-auto mr-auto" onClick={handleSubmit} to={builtNavLinkUrl} tag={NavLink}>
-                    <Button color="primary" style={{borderRadius:"1.5rem"}} >
+        <Row>
+                <RSNavLink className="ml-auto mr-auto p-0" style={{transform:"translateY(50%)"}} onClick={handleSubmit} to={builtNavLinkUrl} tag={NavLink}>
+                    <Button color="primary" style={{borderRadius:"1.65rem"}} >
                         <IconSearch color="white" size="18"/> Submit
                     </Button>
                 </RSNavLink>

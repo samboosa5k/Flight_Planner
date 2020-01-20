@@ -58,11 +58,13 @@ const FlightDatePicker = ({label, identifier, ignores}) => {
     return (
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
             
-            <DropdownToggle color="light" caret className="w-100">
-                <span className="text-dark">{label}: </span><span className="text-success">{outputDate}</span>
+            <DropdownToggle color="white" caret tag="div"
+                className="w-100 form-control d-flex align-items-center justify-content-center align-content-center" 
+                style={{padding:"1.5rem 1rem 1.5rem 1rem", border:"1px solid rgba(0, 0, 0, 0.125)"}}>
+                <span className="text-dark mr-3">{label}:</span><span className="text-success">{outputDate}</span>
             </DropdownToggle>
             
-            <DropdownMenu className="p-0 m-0">
+            <DropdownMenu className="w-100 p-0 m-0">
                     
                 <InputGroup>
                     <InputGroupAddon addonType="prepend" style={{width:"33%"}}>

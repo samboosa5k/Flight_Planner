@@ -17,10 +17,19 @@ const SearchResults = React.lazy( () => import( '../content/homesearch/SearchRes
 
 //  Note:   Clean loading of 'view' components
 const HomeSearch = ({queryString}) => {
+    //  Context
     const {state} = useContext(FlightContext);
+    //  State - helps with loading new search results
+    const [currentSearch, setCurrentSearch] = useState({});
+
+    //  If a new search has been made,
+    //  give a reason to show/refresh the search results
+    const triggerResults = () => {
+
+    }
 
     return (
-        <>
+        <div>
             <Suspense fallback={<p>Loading flight search form...</p>}>
                 <SearchForm/>
             </Suspense>
@@ -31,7 +40,7 @@ const HomeSearch = ({queryString}) => {
                     <SearchResults/>
                 </Suspense>
             }
-        </>
+        </div>
     )
 }
 

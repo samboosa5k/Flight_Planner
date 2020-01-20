@@ -19,20 +19,17 @@ const Footer = React.lazy( () => import( './src/Components/Footer.jsx' ) );
     Style imports
 */
 import './src/styles/bootstrap.min.css';
-// import './src/styles/bootstrap-grid.min.css';
-// import './src/styles/bootstrap-reboot.min.css';
-// import './src/styles/bootstrap-utilities.min.css';
 
 const Index = () => (
     <>
         <Router basename={routes().basename}>
             <Suspense fallback={<p>Interface loading...</p>}>
                     <Route path="/" render={( routeProps ) => (
-                        <>
-                        <Header />
-                        <Content {...routeProps} />
-                        <Footer />
-                        </>
+                        <div className="d-flex flex-column" style={{height:"100vh"}}>
+                            <Header />
+                            <Content {...routeProps} />
+                            <Footer />
+                        </div>
                     )}/>
             </Suspense>
         </Router>

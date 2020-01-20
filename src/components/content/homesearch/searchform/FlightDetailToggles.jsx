@@ -81,8 +81,8 @@ const FlightDetailToggles = ({ignores, setIgnores}) => {
     return(
     <Nav>
         <Dropdown nav isOpen={dropdownOpen === 'flight_type'} toggle={() => toggle( 'flight_type' )}>
-            <DropdownToggle nav caret>
-            <span className="text-secondary">Type:</span> {flightType}
+            <DropdownToggle nav caret className="pl-0">
+                <span className="text-secondary">Type:</span> {flightType}
             </DropdownToggle>
             <DropdownMenu id="flight_type" >
                 <DropdownItem name="round" onClick={(e)=>{onToggleChange(e)}}>Return</DropdownItem>
@@ -92,8 +92,8 @@ const FlightDetailToggles = ({ignores, setIgnores}) => {
         </Dropdown>
 
         <Dropdown nav isOpen={dropdownOpen === 'adults'} toggle={() => toggle( 'adults' )}>
-            <DropdownToggle nav caret>
-                    <span className="text-secondary">Passengers</span> <Badge className="p-2 badge-success">{passengers}</Badge>
+            <DropdownToggle nav caret className="pl-0">
+                <span className="text-secondary">Passengers:</span> <Badge className="p-2 badge-success">{passengers}</Badge>
             </DropdownToggle>
             <DropdownMenu id="adults">
                 <DropdownItem name="1" onClick={(e)=>{onToggleChange(e)}}>1</DropdownItem>
@@ -107,8 +107,8 @@ const FlightDetailToggles = ({ignores, setIgnores}) => {
         </Dropdown>
 
         <Dropdown nav isOpen={dropdownOpen === 'selected_cabins'} toggle={() => toggle( 'selected_cabins' )}>
-            <DropdownToggle nav caret>
-                    <span className="text-secondary">Class:</span> {selectedCabins}
+            <DropdownToggle nav caret className="pl-0">
+                <span className="text-secondary">Class:</span> {selectedCabins}
             </DropdownToggle>
             <DropdownMenu id="selected_cabins">
                 <DropdownItem name="M" onClick={(e)=>{onToggleChange(e)}}>Economy</DropdownItem>
