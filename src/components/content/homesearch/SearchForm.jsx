@@ -32,7 +32,6 @@ const SearchForm = ({isNewSearch}) => {
     const {state, dispatch} = useContext(FlightContext);
     //  State - manage which fields are inactive based on other toggles
     const [ignores, setIgnores] = useState(['return_from']);
-    const [hasSearched, setHasSearched] = useState(false);
 
     //  Get the url-parameters for the fetching
     const urlParams = Object.entries(state[0].flightParameters).filter(arr => {
@@ -57,8 +56,6 @@ const SearchForm = ({isNewSearch}) => {
     //  Handle the api-fetching
     const doFetch = () => {
         reset();
-
-        setHasSearched('true');
        
             fetch(builtFetchUrl)
             .then(kiwiResponse => {
@@ -77,7 +74,6 @@ const SearchForm = ({isNewSearch}) => {
                 }) 
             })
             .catch(error => console.log('FlightSearchSubmit.jsx error: ', error));
-     
     }
 
     return (

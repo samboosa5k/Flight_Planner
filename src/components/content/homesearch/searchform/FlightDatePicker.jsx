@@ -25,6 +25,8 @@ const FlightDatePicker = ({label, identifier, ignores}) => {
     const [day, setDay] = useState(date().day);
     const [month, setMonth] = useState(date().month);
     const [year, setYear] = useState(date().year);
+    //  State - toggle dropdown open/closed
+    const [dropdownOpen, setDropdownOpen] = useState(false);
     
     //  On mount, set context date
     useEffect(()=>{
@@ -45,6 +47,9 @@ const FlightDatePicker = ({label, identifier, ignores}) => {
         const tempContext = state[0].flightParameters;
         tempContext[identifier] = outputDate;
 
+        //  Close the datepicker when submitted
+        setDropdownOpen(prevState => !prevState);
+
         dispatch({
             target: target,
             payload: tempContext
@@ -52,14 +57,13 @@ const FlightDatePicker = ({label, identifier, ignores}) => {
     }
 
     //  Handle the dropdown toggling
-    const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => {if (ignores.includes(identifier) === false) setDropdownOpen(prevState => !prevState)};
 
     return (
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
             
             <DropdownToggle color="white" caret tag="div"
-                className="w-100 form-control d-flex align-items-center justify-content-center align-content-center" 
+                className="w-100 form-control d-flex align-items-center justify-content-center" 
                 style={{padding:"1.5rem 1rem 1.5rem 1rem", border:"1px solid rgba(0, 0, 0, 0.125)"}}>
                 <span className="text-dark mr-3">{label}:</span><span className="text-success">{outputDate}</span>
             </DropdownToggle>
@@ -109,9 +113,7 @@ const FlightDatePicker = ({label, identifier, ignores}) => {
                 </InputGroup>
                 
                 <Col className="text-center">
-                    <Button color="primary" size="md"
-                        onClick={()=>{submitDate()}}
-                    >Ready</Button>
+                    <Button color="primary" size="md" onClick={()=>{submitDate()}}>Ready</Button>
                 </Col>
             </DropdownMenu>
         </Dropdown>
