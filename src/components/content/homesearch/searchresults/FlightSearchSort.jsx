@@ -21,6 +21,8 @@ const FlightSearchSort = ({doFetch}) => {
     const handleSort = (e) => {
         e.preventDefault(e);
 
+        console.log('handleSort clicked', 'results should now be sorted?' );
+        
         const target = 'flightsFound';
         const paramTarget = e.target.name;
 
@@ -36,7 +38,7 @@ const FlightSearchSort = ({doFetch}) => {
     }
  
     //  handleSort will do a new fetch because the api supports this
-    const otherSort = (e) => {
+    /* const otherSort = (e) => {
         e.preventDefault();
 
         const target = 'flightParameters';
@@ -52,7 +54,7 @@ const FlightSearchSort = ({doFetch}) => {
         });
 
         doFetch();
-    }
+    } */
 
     return(
         <div id="sort" className="float-right">
