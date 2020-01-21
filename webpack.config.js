@@ -10,7 +10,7 @@ module.exports = {
         publicPath: '/'
     },
     watchOptions: {
-        aggregateTimeout: 3000,
+        aggregateTimeout: 1500,
 	ignored: '/node_modules/'
     },
     devServer: {

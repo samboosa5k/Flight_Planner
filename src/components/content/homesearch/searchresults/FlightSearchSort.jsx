@@ -63,9 +63,9 @@ const FlightSearchSort = ({doFetch}) => {
             <Button name="price" outline color="primary" className="ml-lg-3 ml-md-2" style={{borderRadius:"1.5rem"}} onClick={(e)=>{handleSort(e)}}>
                 <IconTag color="primary" size="18"/> Price
             </Button>
-            <Button name="duration" outline color="primary" className="ml-lg-3 ml-md-2" style={{borderRadius:"1.5rem"}} onClick={(e)=>{otherSort(e)}} >
+            {/* <Button name="duration" outline color="primary" className="ml-lg-3 ml-md-2" style={{borderRadius:"1.5rem"}} onClick={(e)=>{otherSort(e)}} >
                 <IconWatch color="primary" size="18"/> Duration
-            </Button>
+            </Button> */}
         </div>
     )
 };

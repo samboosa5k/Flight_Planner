@@ -31,7 +31,7 @@ const FlightDetailToggles = ({ignores, setIgnores}) => {
     };
     
     //  Handle the changing of the detail toggles
-    const onToggleChange = (e) => {
+    const onToggleChange = ( e ) => {
         e.preventDefault();
 
         const target = 'flightParameters';
@@ -40,42 +40,42 @@ const FlightDetailToggles = ({ignores, setIgnores}) => {
         const paramValue = e.target.name;
 
         //  Dirty/clean solution: replace the entire flightParameters object at once...
-        //  ...the alternative was to do some next-level nested mapping in the reducer,
-        //  which caused react to crash.
+        //  ...the alternative was to do some **next-level** nested mapping in the reducer,
+        //  -> which caused react to crash.
         //  At least at the top-most level, I'm not replacing the entire context.
         const tempContext = state[0].flightParameters;
         tempContext[paramTarget] = paramValue;
 
         //  Switch necessary to update State values (what user sees), and Context, what is used for the URL->API
-        switch(paramTarget){
+        switch ( paramTarget ) {
             case 'flight_type':
-                setFlightType(chosen);
-                if(chosen === 'Single'){
-                    if(ignores.includes('return_from') === false){
-                        setIgnores([...ignores, 'return_from']);
+                setFlightType( chosen );
+                if ( chosen === 'Single' ) {
+                    if ( ignores.includes( 'return_from' ) === false ) {
+                        setIgnores( [...ignores, 'return_from'] );
                     }
-                } else {
-                    if(ignores.includes(paramValue) === true){
+                } else if ( chosen === 'Return' ) {
+                    if ( ignores.includes( 'return_from' ) === true ) {
                         let tempIgnores = ignores;
-                        tempIgnores.splice(tempIgnores.indexOf('return_from'), 1);
-                        setIgnores(tempIgnores);
+                        tempIgnores.splice( tempIgnores.indexOf( 'return_from' ), 1 );
+                        setIgnores( tempIgnores );
                     }
                 }
                 break;
-            
+
             case 'adults':
-                setPassengers(chosen);
+                setPassengers( chosen );
                 break;
-            
+
             case 'selected_cabins':
-                setSelectedCabins(chosen);
+                setSelectedCabins( chosen );
                 break;
         }
 
-        dispatch({
+        dispatch( {
             target: target,
             payload: tempContext
-        });
+        } );
     }
 
     return(

@@ -3,7 +3,7 @@ import React from 'react';
 /* 
     Reactstrap imports
 */
-import { Navbar, Nav, NavItem } from 'reactstrap';
+import { Navbar, Nav } from 'reactstrap';
 
 /* 
     Component imports: Header
@@ -16,9 +16,9 @@ const Header = () => (
         <Navbar expand="md" className="header bg-light flex-grow-0" tag="header">
             <Logo />
             <Nav>
-                <NavItem>
-                    This is the navbar...
-                </NavItem>
+                <a href="https://github.com/samboosa5k" target="_blank" rel="noopener noreferrer" className="text-secondary">
+                    My Github
+                </a>
             </Nav>
         </Navbar>
 

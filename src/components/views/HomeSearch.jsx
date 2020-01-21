@@ -1,13 +1,8 @@
-import React, { Suspense, useContext } from 'react';
+import React, { useState, useContext, Suspense } from 'react';
 import PropTypes from 'prop-types';
 
-/* 
-    Context imports
-*/
-import {FlightContext} from '../../flightContext.jsx';
-
 /*
-    Component imports: HomeSearch 'view'
+    Compnewnt imports: HomeSearch 'view'
     - SearchForm.jsx
     - SearchResults.jsx
 */
@@ -15,31 +10,42 @@ const SearchForm = React.lazy( () => import( '../content/homesearch/SearchForm.j
 const SearchResults = React.lazy( () => import( '../content/homesearch/SearchResults.jsx' ) );
 
 
-//  Note:   Clean loading of 'view' components
+//  Note:   Clean loading of 'view' compnewnts
 const HomeSearch = ({queryString}) => {
-    //  Context
-    const {state} = useContext(FlightContext);
     //  State - helps with loading new search results
-    const [currentSearch, setCurrentSearch] = useState({});
+    const [currentSearch, setCurrentSearch] = useState([]);
+    const [newSearch, setNewSearch] = useState();
 
     //  If a new search has been made,
     //  give a reason to show/refresh the search results
-    const triggerResults = () => {
+    const isNewSearch = (urlParams) => {
+        const incoming = [].concat(...urlParams);
+        const current = [].concat(...currentSearch);
+        let counter = 0;
 
-    }
+        for(let i in incoming){
+            if(incoming[i] === current[i]) counter += 1;
+        }
+
+        if(counter === incoming.length){
+            setNewSearch(false);
+            return false;
+        } else {
+            setCurrentSearch(urlParams);
+            setNewSearch(true);
+            return true;
+        }
+    };
 
     return (
         <div>
             <Suspense fallback={<p>Loading flight search form...</p>}>
-                <SearchForm/>
+                <SearchForm isNewSearch={isNewSearch}/>
             </Suspense>
 
-            {
-                state[2].flightsFound.length > 0 &&
-                <Suspense fallback={<p>Loading flight search results...</p>}>
-                    <SearchResults/>
-                </Suspense>
-            }
+            <Suspense fallback={<p>Loading flight search results...</p>}>
+                <SearchResults newSearch={newSearch}/>
+            </Suspense>
         </div>
     )
 }
@@ -49,3 +55,4 @@ HomeSearch.propTypes = {
 }
 
 export default HomeSearch;
+

@@ -17,8 +17,6 @@ import { Container, Jumbotron, Card, CardBody } from 'reactstrap';
     - Search fields
     - Submit functionality
 */
-import FlightSearchSort from './searchform/FlightSearchSort.jsx';
-
 import FlightDetailToggles from './searchform/FlightDetailToggles.jsx';
 import FlightSearchForm from './searchform/FlightSearchForm.jsx';
 import FlightSearchSubmit from './searchform/FlightSearchSubmit.jsx';
@@ -29,7 +27,7 @@ import jumbotron from '../../../img/jumbotron.jpg';
 
 
 //  Search section on 'HomeSearch' view
-const SearchForm = () => {
+const SearchForm = ({isNewSearch}) => {
     //  Context
     const {state, dispatch} = useContext(FlightContext);
     //  State - manage which fields are inactive based on other toggles
@@ -47,11 +45,22 @@ const SearchForm = () => {
         urlParams
     );
 
+    const reset = () => {
+        const empty = [];
+
+        dispatch({
+            target: 'flightsFound',
+            payload: empty
+        })
+    }
+
     //  Handle the api-fetching
     const doFetch = () => {
-        setHasSearched('true');
+        reset();
 
-        fetch(builtFetchUrl)
+        setHasSearched('true');
+       
+            fetch(builtFetchUrl)
             .then(kiwiResponse => {
                 if(kiwiResponse.ok){
                     return kiwiResponse.json();
@@ -68,6 +77,7 @@ const SearchForm = () => {
                 }) 
             })
             .catch(error => console.log('FlightSearchSubmit.jsx error: ', error));
+     
     }
 
     return (
@@ -94,17 +104,9 @@ const SearchForm = () => {
                     <CardBody className="pt-3 pl-3 pr-3 pb-0">
                         <FlightDetailToggles ignores={ignores} setIgnores={setIgnores}/>
                         <FlightSearchForm ignores={ignores}/>
-                        <FlightSearchSubmit urlParams={urlParams} doFetch={doFetch}/>
+                        <FlightSearchSubmit urlParams={urlParams} doFetch={doFetch} isNewSearch={isNewSearch} />
                     </CardBody>
                 </Card>
-
-                {/* Search-finetuning appears only once search has been made */}
-                <Card className={`searchform-finetuning ${(hasSearched)?'block':'d-none'} border-0`}>
-                    <CardBody className="p-3">
-                        <FlightSearchSort doFetch={doFetch}/>
-                    </CardBody>
-                </Card>
-               
 
             </Container>
         </>

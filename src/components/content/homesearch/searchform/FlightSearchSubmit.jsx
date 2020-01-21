@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 /* 
@@ -18,7 +18,7 @@ import {Row, Button, NavLink as RSNavLink} from 'reactstrap';
 import {IconSearch} from '../../../general/Icons.jsx';
 
 
-const FlightSearchSubmit = ({urlParams, doFetch}) => {
+const FlightSearchSubmit = ({isNewSearch, urlParams, doFetch}) => { 
     //  Build the NavLink-URL
     const builtNavLinkUrl = urlBuilder().construct(
         r().flights,
@@ -27,7 +27,11 @@ const FlightSearchSubmit = ({urlParams, doFetch}) => {
 
     //  Handle submit button
     const handleSubmit = () => {
-        doFetch();
+        if(isNewSearch(urlParams)){
+            doFetch();
+        } else {
+            console.log('Same search');
+        }        
     }
 
     return (
