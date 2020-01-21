@@ -10,21 +10,21 @@ import {FlightContext} from '../../../../flightContext.jsx';
 */
 import {date} from '../../../../tools.js';
 
-/* 
-    Reactstrap improts
-*/
+/* Reactstrap improts */
 import {    Button, Col,
-            Dropdown, DropdownMenu, DropdownToggle,
-            InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+            Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
+
+/* Component imports: Calendar */
+import FlightCalendar from './FlightCalendar.jsx';
 
 
 const FlightDatePicker = ({label, identifier, ignores}) => {
     //  Context
     const {state, dispatch} = useContext(FlightContext);
     //  State - Date, individually set day/month/year
-    const [day, setDay] = useState(date().day);
-    const [month, setMonth] = useState(date().month);
-    const [year, setYear] = useState(date().year);
+    const [day, setDay] = useState(parseInt(date().day));
+    const [month, setMonth] = useState(parseInt(date().month));
+    const [year, setYear] = useState(parseInt(date().year));
     //  State - toggle dropdown open/closed
     const [dropdownOpen, setDropdownOpen] = useState(false);
     
@@ -39,21 +39,26 @@ const FlightDatePicker = ({label, identifier, ignores}) => {
     //  Format the date for display & to dispatch to context
     const outputDate = date().formatted(day, month, year);
     
-    //  Submit date to context - specific to identifier prop
-    const submitDate = () => {
+    //  calendar immediate select
+    const calDateSelect = ( e, dateArray ) => {
+        e.preventDefault();
+        setDay( dateArray[0] );
+        setMonth( dateArray[1] );
+        setYear( dateArray[2] );
+
         const target = 'flightParameters';
 
         //  Dirty/clean solution: (See FlightDetailToggles.jsx for better explanation)
         const tempContext = state[0].flightParameters;
         tempContext[identifier] = outputDate;
 
-        //  Close the datepicker when submitted
-        setDropdownOpen(prevState => !prevState);
+        //  Close the calendar when submitted
+        setDropdownOpen( prevState => !prevState );
 
-        dispatch({
+        dispatch( {
             target: target,
             payload: tempContext
-        })
+        } )
     }
 
     //  Handle the dropdown toggling
@@ -68,53 +73,19 @@ const FlightDatePicker = ({label, identifier, ignores}) => {
                 <span className="text-dark mr-3">{label}:</span><span className="text-success">{outputDate}</span>
             </DropdownToggle>
             
-            <DropdownMenu className="w-100 p-0 m-0">
+            <DropdownMenu className="shadow p-0 m-0">
                     
-                <InputGroup>
-                    <InputGroupAddon addonType="prepend" style={{width:"33%"}}>
-                        <InputGroupText className="w-100">
-                        Day
-                        </InputGroupText>
-                    </InputGroupAddon>
-                    <Input 
-                        placeholder={day} 
-                        value={day} 
-                        min={1} max={31} type="number" step="1" 
-                        onChange={(e)=>{setDay(e.target.value)}}
-                    />
-                </InputGroup>
+                <FlightCalendar 
+                    calDateSelect={calDateSelect}
+                    day={day}
+                    month={month}
+                    year={year}
+                    setMonth={setMonth}
+                />
                 
-                <InputGroup>
-                    <InputGroupAddon addonType="prepend" style={{width:"33%"}}>
-                        <InputGroupText className="w-100">
-                        Month
-                        </InputGroupText>
-                    </InputGroupAddon>
-                    <Input 
-                        placeholder={month} 
-                        value={month} 
-                        min={1} max={12} type="number" step="1" 
-                        onChange={(e)=>{setMonth(e.target.value)}}
-                    />
-                </InputGroup>
-                
-                <InputGroup>
-                    <InputGroupAddon addonType="prepend" style={{width:"33%"}}>
-                        <InputGroupText className="w-100">
-                        Year
-                        </InputGroupText>
-                    </InputGroupAddon>
-                    <Input 
-                        placeholder={year} 
-                        value={year} 
-                        min={2019} max={2050} type="number" step="1" 
-                        onChange={(e)=>{setYear(e.target.value)}}
-                    />
-                </InputGroup>
-                
-                <Col className="text-center">
+                {/* <Col className="text-center">
                     <Button color="primary" size="md" onClick={()=>{submitDate()}}>Ready</Button>
-                </Col>
+                </Col> */}
             </DropdownMenu>
         </Dropdown>
     )
