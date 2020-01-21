@@ -6,7 +6,7 @@
 export const date = () => {
     const d = (t) => { 
         if(t){
-            return new Date(t*1000) ;
+            return new Date(t*10) ;
         } else {
             return new Date();
         }
@@ -20,13 +20,12 @@ export const date = () => {
     const formatted = (inputDay, inputMonth, inputYear) => {
         return `${inputDay}/${inputMonth}/${inputYear}`
     }
-    const nrDaysInMonth = (inputMonth, inputYear) => {
-        return new Date(inputYear, inputMonth, 0).getDate();
-    }
 
     //  Time related
     const timeFromUnix = (t) => {
-        return d(t).toLocaleTimeString();
+        const hours = (d(t).getHours().toString().length === 1) ? '0' + d(t).getHours() : d(t).getHours();
+        const minutes = (d(t).getMinutes().toString().length === 1) ? '0' + d(t).getMinutes() : d(t).getMinutes();
+        return `${hours}:${minutes}`;
     }
 
     return {
@@ -46,12 +45,13 @@ export const date = () => {
     - base = the base url
     - paramValArray = array of objects, consisting of parameter name & value
 */
+
 export const urlBuilder = () => {
     const buildQueryString = (paramValArray) => {
         let query = '?';
-        paramValArray.forEach((obj,index)=>{
+        paramValArray.forEach((arr,index)=>{
             const amp = (index+1 === paramValArray.length) ? '' : '&';
-            query += `${obj.key}=${obj.value}${amp}`;
+            query += `${arr[0]}=${arr[1]}${amp}`;
         })
         return query;
     }

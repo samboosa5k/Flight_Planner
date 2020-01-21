@@ -11,7 +11,7 @@ import { Row, Col } from 'reactstrap';
 import FlightSearchField from './FlightSearchField.jsx';
 import FlightDatePicker from './FlightDatePicker.jsx';
 
-const FlightSearchForm = () => {
+const FlightSearchForm = ({ignores}) => {
     return (
         <Row>
             <Col md="3" sm="12">
@@ -23,11 +23,11 @@ const FlightSearchForm = () => {
             </Col>
         
             <Col md="3" sm="12">
-                <FlightDatePicker identifier="date_from" label="Depart"/>
+                <FlightDatePicker identifier="date_from" label="Depart" ignores={ignores}/>
             </Col>
             
             <Col md="3" sm="12">
-                <FlightDatePicker identifier="return_from" label="Return"/>
+                <FlightDatePicker identifier="return_from" label="Return" ignores={ignores}/>
             </Col>
         </Row>
     )

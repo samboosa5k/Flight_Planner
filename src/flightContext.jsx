@@ -3,47 +3,34 @@ import React from 'react';
 /*
     Context - init context and default state
     - Partner = picky, this is ESSENTIAL
+    - Default/fixed parameters (for now, change later):
+        - max_stopovers
+        - sort (by price, time)
+        - asc
+        - limit
 */
-export const flightParameters = [ 
+export const flightContextStore = [
     {
-        "key": "fly_from",
-        "value": "AMS"
+        flightParameters: {
+            "fly_from": "AMS",
+            "fly_to": "DUB",
+            "date_from": "10/02/2020",
+            "flight_type": "oneway",
+            "adults": "1",
+            "selected_cabins": "M",
+            "max_stopovers": "0",
+            "curr": "EUR",
+            "sort": "price",
+            "asc": "1",
+            "limit": "10",
+            "partner": "picky",
+        }
     },
     {
-        "key": "fly_to",
-        "value": "DUB"
+        build_fetch_url: "",
     },
     {
-        "key": "date_from",
-        "value": "00/00/00"
-    },
-    {
-        "key": "return_from",
-        "value": "00/00/00"
-    },
-    {
-        "key": "flight_type",
-        "value": "oneway"
-    },
-    {
-        "key": "adults",
-        "value": "1"
-    },
-    {
-        "key": "selected_cabins",
-        "value": "M"
-    },
-    {
-        "key": "limit",
-        "value": "10"
-    },
-    {
-        "key": "partner",
-        "value": "picky"
-    },
-    {
-        "key": "built_fetch_url",
-        "value": ""
+        flightsFound: [],
     }
 ];
 
@@ -51,16 +38,31 @@ export const flightParameters = [
 /* 
     Reducer - modify individual state-hook values without re-rendering everything
 */
-export const flightParamReducer = ( state, action ) => {
-    return state.map( param => {
-        if ( param.key === action.target ) {
-            if ( param.value !== action.payload ) {
-                param.value = action.payload;
-            }
-        } return param;// Am i forgetting a return here?
-    }  )
+export const flightContextReducer = ( state, action ) => {
+    switch(action.target){
+        case('flightsFound'):
+            return state.map(obj => {
+                if ('flightsFound' in obj) {
+                    return {flightsFound: action.payload};
+                } else {
+                    return obj;
+                }
+            });
+            break;
+        case('flightParameters'):
+            return state.map(obj => {
+                if('flightParameters' in obj){
+                    return {flightParameters: action.payload};
+                } else {
+                    return obj;
+                }
+            });
+            break;
+        default:
+            console.log('Context reducer: ', 'No valid target provided');
+            return state;
+    }
 }
-
 
 /*
     Context - init context and default state/dispatch object

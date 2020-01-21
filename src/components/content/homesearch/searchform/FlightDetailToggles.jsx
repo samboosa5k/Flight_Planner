@@ -11,7 +11,7 @@ import {FlightContext} from '../../../../flightContext.jsx';
 import { Nav, Badge, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 
-const FlightDetailToggles = () => {
+const FlightDetailToggles = ({ignores, setIgnores}) => {
     //  Context
     const {state, dispatch} = useContext(FlightContext);
     //  State - specific to what is displayed in the toggles
@@ -31,82 +31,91 @@ const FlightDetailToggles = () => {
     };
     
     //  Handle the changing of the detail toggles
-    const onToggleChange = (e) => {
+    const onToggleChange = ( e ) => {
         e.preventDefault();
 
-        let target = e.target.parentElement.id;
-        let chosen = e.target.textContent;
-        let payload = undefined;
+        const target = 'flightParameters';
+        const chosen = e.target.textContent;
+        const paramTarget = e.target.parentElement.id;
+        const paramValue = e.target.name;
+
+        //  Dirty/clean solution: replace the entire flightParameters object at once...
+        //  ...the alternative was to do some **next-level** nested mapping in the reducer,
+        //  -> which caused react to crash.
+        //  At least at the top-most level, I'm not replacing the entire context.
+        const tempContext = state[0].flightParameters;
+        tempContext[paramTarget] = paramValue;
 
         //  Switch necessary to update State values (what user sees), and Context, what is used for the URL->API
-        switch(target){
+        switch ( paramTarget ) {
             case 'flight_type':
-                setFlightType(chosen);
-                if(chosen === 'Single') {
-                    payload = 'oneway';
-                }
-                if(chosen === 'Return') {
-                    payload = 'round';
+                setFlightType( chosen );
+                if ( chosen === 'Single' ) {
+                    if ( ignores.includes( 'return_from' ) === false ) {
+                        setIgnores( [...ignores, 'return_from'] );
+                    }
+                } else if ( chosen === 'Return' ) {
+                    if ( ignores.includes( 'return_from' ) === true ) {
+                        let tempIgnores = ignores;
+                        tempIgnores.splice( tempIgnores.indexOf( 'return_from' ), 1 );
+                        setIgnores( tempIgnores );
+                    }
                 }
                 break;
-            
+
             case 'adults':
-                setPassengers(chosen);
-                payload = chosen;
+                setPassengers( chosen );
                 break;
-            
+
             case 'selected_cabins':
-                setSelectedCabins(chosen);
-                if(chosen === 'Economy') payload = 'M';
-                if(chosen === 'Business') payload = 'C';
-                if(chosen === 'First') payload = 'F';
+                setSelectedCabins( chosen );
                 break;
         }
 
-        dispatch({
+        dispatch( {
             target: target,
-            payload: payload
-        });
+            payload: tempContext
+        } );
     }
 
     return(
     <Nav>
         <Dropdown nav isOpen={dropdownOpen === 'flight_type'} toggle={() => toggle( 'flight_type' )}>
-            <DropdownToggle nav caret>
-            <span className="text-secondary">Type:</span> {flightType}
+            <DropdownToggle nav caret className="pl-0">
+                <span className="text-secondary">Type:</span> {flightType}
             </DropdownToggle>
             <DropdownMenu id="flight_type" >
-                <DropdownItem onClick={(e)=>{onToggleChange(e)}}>Return</DropdownItem>
+                <DropdownItem name="round" onClick={(e)=>{onToggleChange(e)}}>Return</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={(e)=>{onToggleChange(e)}}>Single</DropdownItem>
+                <DropdownItem name="oneway" onClick={(e)=>{onToggleChange(e)}}>Single</DropdownItem>
             </DropdownMenu>
         </Dropdown>
 
         <Dropdown nav isOpen={dropdownOpen === 'adults'} toggle={() => toggle( 'adults' )}>
-            <DropdownToggle nav caret>
-                    <span className="text-secondary">Passengers</span> <Badge className="p-2 badge-success">{passengers}</Badge>
+            <DropdownToggle nav caret className="pl-0">
+                <span className="text-secondary">Passengers:</span> <Badge className="p-2 badge-success">{passengers}</Badge>
             </DropdownToggle>
             <DropdownMenu id="adults">
-                <DropdownItem onClick={(e)=>{onToggleChange(e)}}>1</DropdownItem>
+                <DropdownItem name="1" onClick={(e)=>{onToggleChange(e)}}>1</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={(e)=>onToggleChange(e)}>2</DropdownItem>
+                <DropdownItem name="2" onClick={(e)=>onToggleChange(e)}>2</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={(e)=>onToggleChange(e)}>3</DropdownItem>
+                <DropdownItem name="3" onClick={(e)=>onToggleChange(e)}>3</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={(e)=>onToggleChange(e)}>4</DropdownItem>
+                <DropdownItem name="4" onClick={(e)=>onToggleChange(e)}>4</DropdownItem>
             </DropdownMenu>
         </Dropdown>
 
         <Dropdown nav isOpen={dropdownOpen === 'selected_cabins'} toggle={() => toggle( 'selected_cabins' )}>
-            <DropdownToggle nav caret>
-                    <span className="text-secondary">Class:</span> {selectedCabins}
+            <DropdownToggle nav caret className="pl-0">
+                <span className="text-secondary">Class:</span> {selectedCabins}
             </DropdownToggle>
             <DropdownMenu id="selected_cabins">
-                <DropdownItem onClick={(e)=>{onToggleChange(e)}}>Economy</DropdownItem>
+                <DropdownItem name="M" onClick={(e)=>{onToggleChange(e)}}>Economy</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={(e)=>{onToggleChange(e)}}>Business</DropdownItem>
+                <DropdownItem name="C" onClick={(e)=>{onToggleChange(e)}}>Business</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem onClick={(e)=>{onToggleChange(e)}}>First</DropdownItem>
+                <DropdownItem name="F" onClick={(e)=>{onToggleChange(e)}}>First</DropdownItem>
             </DropdownMenu>
         </Dropdown>
     </Nav>

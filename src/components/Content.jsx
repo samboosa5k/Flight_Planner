@@ -1,11 +1,11 @@
-import React, {Suspense, useEffect, useReducer} from 'react';
+import React, {useReducer} from 'react';
 import PropTypes from 'prop-types';
 
 /* 
     Context imports: SETUP
     - This is where it is setup/initialized and passed down
 */
-import { flightParameters, FlightContext, flightParamReducer } from '../flightContext.jsx';
+import { flightContextStore, FlightContext, flightContextReducer } from '../flightContext.jsx';
 
 /* 
     General imports
@@ -20,7 +20,7 @@ import { Container } from 'reactstrap';
 /* 
     Component imports: Content
 */
-const HomeSearch = React.lazy(()=> import('./views/HomeSearch.jsx'));
+import HomeSearch from './views/HomeSearch.jsx';
 
 /* 
     Switch:
@@ -54,7 +54,7 @@ const ContentSwitch = ( {page, search} ) => {
 
 const Content = ( { location }) => {
     //  Context - Here it all starts...
-    const [state, dispatch] = useReducer(flightParamReducer, flightParameters);
+    const [state, dispatch] = useReducer(flightContextReducer, flightContextStore);
 
     //  Router props
     const page = location.pathname;
@@ -62,10 +62,8 @@ const Content = ( { location }) => {
 
     return(
         <FlightContext.Provider value={{state, dispatch}}>
-                <Container className="content my-4" fluid="md" tag="main">
-                    <Suspense fallback={<p>Loading page content...</p>}>
-                        <ContentSwitch page={page} search={search}/>
-                    </Suspense>
+                <Container className="content my-4 flex-grow-1" fluid="md" tag="main">
+                    <ContentSwitch page={page} search={search}/>
                 </Container>
         </FlightContext.Provider>
     )
