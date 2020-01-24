@@ -12,8 +12,16 @@ import { Spinner, Table } from 'reactstrap';
 /* Component imports: Graphics */
 import square128 from '../../../../img/square128.jpg';
 
-const ResultsList = ({newSearch}) => {
+const ResultsList = ({newSearch, perPage, pageNr}) => {
+    //  Context
     const { state } = useContext( FlightContext );
+
+    //  Variables
+    const pageResults = state[2].flightsFound.filter((flight, index)=>{
+        if(index >= pageNr*perPage && index <= (pageNr*perPage)+perPage){
+            return flight;
+        }
+    })
 
     //  Logic for showing or refreshing results depending on if a new search is made
     //  the 'newSearch' value is measured in HomeSearch.jsx
@@ -32,12 +40,12 @@ const ResultsList = ({newSearch}) => {
             <Table className="shadow mt-1 mb-1" style={{ border: "1px solid rgba(0, 0, 0, 0.125)" }}>
                 <tbody>
                     {
-                        state[2].flightsFound.map( ( flight, index ) => (
+                        pageResults.map( ( flight, index ) => (
                             <tr key={`flight_list_result_${index}`}>
 
                                 {/* Left 2: Airline logo*/}
                                 <td className="align-middle" style={{ width: "10%" }}>
-                                    <img src={square128} className="p-0" alt="airline_logo" style={{maxWidth:"72px",height:"auto"}}/>
+                                    <img src={square128} className="p-0" alt="airline_logo" style={{maxWidth:"3rem",height:"auto"}}/>
                                 </td>
 
                                 {/* Left 2: time, airlane name */}
