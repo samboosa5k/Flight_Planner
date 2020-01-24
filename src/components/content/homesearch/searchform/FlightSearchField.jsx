@@ -29,9 +29,9 @@ const FlightSearchField = ( { identifier, placeholder } ) => {
 
 
     //  Handle airport suggestion filtering
-    const handleSuggestions = ( inputQuery ) => {
+    const handleSuggestions = ( capQuery ) => {
         const suggestionsFiltered = iataDB.filter( ( obj ) => {
-            return obj.location.startsWith( inputQuery );
+            return obj.location.startsWith( capQuery );
         } )
 
         //  Set suggestions state if any are found & are not too many
@@ -56,12 +56,14 @@ const FlightSearchField = ( { identifier, placeholder } ) => {
     }
 
     //  Handle query change = load DB & generate suggestions
-    const handleQueryChange = ( inputQuery ) => {       
+    const handleQueryChange = ( inputQuery ) => {     
+        const capQuery = inputQuery[0].toUpperCase() + inputQuery.slice(1);
+        
         setQuery( inputQuery );
         // Only get DB & suggestions if typing
         if ( inputQuery.length > 1 ) {
             handleDBLoad( inputQuery );
-            handleSuggestions( inputQuery );
+            handleSuggestions( capQuery );
         } else {
             console.log( 'Query status: ', 'DB will import after 2 char query length' );
         };
