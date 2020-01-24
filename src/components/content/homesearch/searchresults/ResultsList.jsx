@@ -37,7 +37,7 @@ const ResultsList = ({newSearch}) => {
 
                                 {/* Left 2: Airline logo*/}
                                 <td className="align-middle" style={{ width: "10%" }}>
-                                    <img src={square128} className="img-fluid p-0" alt="airline_logo" />
+                                    <img src={square128} className="p-0" alt="airline_logo" style={{maxWidth:"72px",height:"auto"}}/>
                                 </td>
 
                                 {/* Left 2: time, airlane name */}
