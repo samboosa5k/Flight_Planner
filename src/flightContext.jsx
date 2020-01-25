@@ -8,6 +8,10 @@ import React from 'react';
         - sort (by price, time)
         - asc
         - limit
+    
+    FlightsFound Array:
+        - Filled with results from fetch in SearchForm.jsx
+        - Filtered at fetch stage to exclude flights where availability = null
 */
 export const flightContextStore = [
     {
@@ -22,7 +26,7 @@ export const flightContextStore = [
             "curr": "EUR",
             "sort": "price",
             "asc": "1",
-            "limit": "10",
+            "limit": "100",
             "partner": "picky",
         }
     },

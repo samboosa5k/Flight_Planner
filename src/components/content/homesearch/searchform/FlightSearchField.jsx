@@ -48,6 +48,10 @@ const FlightSearchField = ( { identifier, placeholder } ) => {
     }
 
     //  Conditional importing of alphabetical named airport lists
+    /* 
+        NEEDS OPTIMIZATION (below)
+        solution? https://stackoverflow.com/questions/59106159/how-to-import-json-file-with-react-lazy-loading
+    */
     const handleDBLoad = ( inputQuery ) => {
         if ( Object.keys( iataDB )[0] !== inputQuery[0].toUpperCase() || Object.keys( iataDB )[0] === undefined )
         {

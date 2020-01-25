@@ -67,10 +67,13 @@ const SearchForm = ({isNewSearch}) => {
             })
             .then(kiwiData => {
                 const {data} = kiwiData;
+                const filterNoSeats = data.filter((flight)=>{
+                    return flight.availability.seats !== null;
+                })
                 //  Send data to context
                 dispatch({
                     target: 'flightsFound',
-                    payload: data
+                    payload: filterNoSeats
                 }) 
             })
             .catch(error => console.log('FlightSearchSubmit.jsx error: ', error));
