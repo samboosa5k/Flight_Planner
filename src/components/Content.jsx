@@ -62,9 +62,9 @@ const Content = ( { location }) => {
 
     return(
         <FlightContext.Provider value={{state, dispatch}}>
-                <Container className="content my-4 flex-grow-1" fluid="md" tag="main">
+                <main className="content m-0-xs my-md-4 my-lg-4 flex-grow-1">
                     <ContentSwitch page={page} search={search}/>
-                </Container>
+                </main>
         </FlightContext.Provider>
     )
 }

@@ -57,7 +57,7 @@ const FlightSearchSort = ({doFetch}) => {
     } */
 
     return(
-        <div id="sort" className="float-right">
+        <div id="sort" className="container d-flex justify-content-end">
             <span>Sort by: </span>
             <Button name="dTime" outline color="primary" className="ml-lg-3 ml-md-2" style={{borderRadius:"1.5rem"}} onClick={(e)=>{handleSort(e)}}>
                 <IconTag color="primary" size="18"/> Departure

@@ -35,7 +35,7 @@ const SearchResults = ({queryString, newSearch}) => {
 
     return (
         <>
-            <Container className="searchresults-container mb-3 border-0">
+            <Container className="searchresults-container pl-0 pr-0 mb-3 border-0">
 
                 {/* Search-finetuning appears only once search has been made */}
                 {

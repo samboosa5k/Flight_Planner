@@ -1,4 +1,4 @@
-import React, { useState, Suspense, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 /* Context imports */
 import {FlightContext} from '../../../flightContext.jsx';
@@ -81,7 +81,7 @@ const SearchForm = ({isNewSearch}) => {
 
     return (
         <>
-            <Container className="searchform-container">
+            <Container className="searchform-container pl-0 pr-0">
                 
                 <Jumbotron fluid className="pb-0 mb-0" style={{
                     backgroundImage:`linear-gradient(rgba(255,255,255,0.75),rgba(255,255,255,0.75)), 
