@@ -7,7 +7,7 @@ module.exports = {
         filename: 'bundle.[hash].js',
         chunkFilename: 'js/[name].[hash].bundle.js',
         path: path.join( __dirname, 'dist' ),
-        publicPath: '/'
+        /*publicPath: '/'*/
     },
     watchOptions: {
         aggregateTimeout: 1500,

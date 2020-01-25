@@ -24,19 +24,6 @@ Flight planner React project done using the Kiwi.com flight-search Api
 - Split code into chunks (code-splitting) separating bundle chunks/vendors etc.
 - Split library of airports into separate JSON files
 
-### Funny problems
-**Green outline flashing around multiple components:**
-
-Took me a while to figure out this one...
-
-At first I thought the issue was Reactstrap doing something strange with animations/style toggling, but the issue was bootstrap's form-focus-shadows, these would trigger on state/context updates.
-
-**Solution:**
-
-Compile bootstrap myself, and remove form-focus-shadows.
-
-This took me hours...
-
 ### Installation
 
 Run this:
