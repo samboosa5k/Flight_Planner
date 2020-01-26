@@ -70,7 +70,7 @@ const FlightDatePicker = ({label, identifier, ignores}) => {
             <DropdownToggle color="white" caret tag="div"
                 className="w-100 form-control d-flex align-items-center justify-content-center" 
                 style={{padding:"1.5rem 1rem 1.5rem 1rem", border:"1px solid rgba(0, 0, 0, 0.125)"}}>
-                <span className="text-dark mr-3">{label}:</span><span className="text-success">{outputDate}</span>
+                <span className="text-dark d-none d-lg-inline mr-3">{label}:</span><span className="text-success">{outputDate}</span>
             </DropdownToggle>
             
             <DropdownMenu className="shadow p-0 m-0">

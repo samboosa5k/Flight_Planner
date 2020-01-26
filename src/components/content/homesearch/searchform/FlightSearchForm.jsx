@@ -14,19 +14,19 @@ import FlightDatePicker from './FlightDatePicker.jsx';
 const FlightSearchForm = ({ignores}) => {
     return (
         <Row>
-            <Col md="3" sm="12">
+            <Col xs="12" sm="6" md="3" lg="3" className="mb-2 mb-sm-2 mb-md-0">
                 <FlightSearchField identifier="fly_from" placeholder="Origin..."/>
             </Col>
         
-            <Col md="3" sm="12">
+            <Col xs="12" sm="6" md="3" lg="3" className="mb-2 mb-sm-2 mb-md-0">
                 <FlightSearchField identifier="fly_to" placeholder="Destination..."/>
             </Col>
         
-            <Col md="3" sm="12">
+            <Col xs="12" sm="6" md="3" lg="3" className="mb-2 mb-sm-2 mb-md-0">
                 <FlightDatePicker identifier="date_from" label="Depart" ignores={ignores}/>
             </Col>
             
-            <Col md="3" sm="12">
+            <Col xs="12" sm="6" md="3" lg="3" className="mb-0">
                 <FlightDatePicker identifier="return_from" label="Return" ignores={ignores}/>
             </Col>
         </Row>
